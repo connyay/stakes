@@ -10,6 +10,7 @@ class ApiController extends Controller
     protected $statusCode = 200;
 
     const CODE_WRONG_ARGS = 'GEN-FUBARGS';
+    const CODE_CONFLICT = 'GEN-CONFLICT';
     const CODE_NOT_FOUND = 'GEN-LIKETHEWIND';
     const CODE_INTERNAL_ERROR = 'GEN-AAAGGH';
     const CODE_UNAUTHORIZED = 'GEN-MAYBGTFO';
@@ -121,6 +122,16 @@ class ApiController extends Controller
                 'message' => $message,
             ]
         ]);
+    }
+
+    /**
+     * Generates a Response with a 409 HTTP header and a given message.
+     *
+     * @return  Response
+     */
+    public function errorConflict($message = 'Conflict')
+    {
+        return $this->setStatusCode(409)->respondWithError($message, self::CODE_CONFLICT);
     }
 
     /**

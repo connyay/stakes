@@ -62,6 +62,21 @@
                 getUsers: function() {
                     return $http({
                         url: 'http://stakes.app:8000/api/users',
+                        method: 'GET',
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    }).then(function(result) {
+                        return result.data.data;
+                    });
+                },
+                addUser: function(username) {
+                    return $http({
+                        url: 'http://stakes.app:8000/api/user',
+                        method: 'POST',
+                        data: {
+                            username: username
+                        },
                         headers: {
                             "Accept": "application/json"
                         }
@@ -94,9 +109,18 @@
         ])
         .controller('UsersCtrl', ['$scope', 'Users',
             function($scope, Users) {
-                Users.getUsers().then(function(data) {
-                    $scope.users = data;
+                Users.getUsers().then(function(users) {
+                    $scope.users = users;
                 });
+
+                $scope.addUser = function() {
+                    if ($scope.username) {
+                        Users.addUser($scope.username).then(function(user) {
+                            $scope.users.push(user);
+                            $scope.username = '';
+                        });
+                    }
+                };
             }
         ]);
 

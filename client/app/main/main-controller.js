@@ -18,9 +18,18 @@
         ])
         .controller('UsersCtrl', ['$scope', 'Users',
             function($scope, Users) {
-                Users.getUsers().then(function(data) {
-                    $scope.users = data;
+                Users.getUsers().then(function(users) {
+                    $scope.users = users;
                 });
+
+                $scope.addUser = function() {
+                    if ($scope.username) {
+                        Users.addUser($scope.username).then(function(user) {
+                            $scope.users.push(user);
+                            $scope.username = '';
+                        });
+                    }
+                };
             }
         ]);
 

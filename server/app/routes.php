@@ -18,4 +18,5 @@ Route::get('/', function()
 
 Route::group( array( 'prefix' => 'api', 'namespace' => 'Stakes\Controllers' ), function () {
         Route::get( '/users', array( 'uses' => 'UserController@listAll' ) );
+        Route::post( '/user', array( 'uses' => 'UserController@addUser' ) );
     } );
