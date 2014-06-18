@@ -1,0 +1,5 @@
+<ul class="sidebar-menu">
+    <li ng-repeat="item in navItems" ng-init="item.route = (item.route) ? item.route : item.title.toLowerCase()" ng-class="{active:isActive('/{{item.route}}')}" >
+        <a href="#{{item.route}}" title="{{item.title}}">{{item.title}}</a>
+    </li>
+</ul>
