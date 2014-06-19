@@ -6,6 +6,9 @@
         "laravel/framework": "4.2.*",
         "league/fractal": "0.8.*"
     },
+    "require-dev": {
+        "way/generators": "2.*"
+    },
     "autoload": {
         "classmap": [
             "app/commands",

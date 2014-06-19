@@ -1,8 +1,6 @@
 <?php namespace Stakes\Controllers;
 
-use Stakes\Repositories\UserRepositoryInterface;
 use Stakes\Transformers\UserTransformer;
-use League\Fractal;
 use Stakes\Models\User;
 use Input, Validator, Hash;
 
@@ -11,84 +9,90 @@ class UserController extends ApiController
 
     /**
      * Display a listing of the resource.
+     * GET /users
      *
      * @return Response
      */
-    public function index() {
+    public function index()
+    {
         $users = User::get();
         return $this->respondWithCollection( $users, new UserTransformer );
     }
 
-
     /**
      * Store a newly created resource in storage.
+     * POST /users
      *
      * @return Response
      */
-    public function store() {
-        $username = Input::get( 'username' );
-        $validator = Validator::make(
-            array( 'username' => $username ),
-            array( 'username' => 'unique:users' )
-        );
-        if ( $validator->fails() ) {
-            return $this->errorConflict();
-        }
-        $password = Hash::make( Input::get( 'password' ) );
-        $user = User::create( array( 'username' => $username, 'password' => $password ) );
-        return $this->respondWithItem( $user, new UserTransformer );
-    }
+    public function store()
+    {
+        $user = new User();
+        $data = Input::all();
+        
+        $validator = Validator::make($data, User::getRules());
+        // attempt validation
+        if ($user->validate($data))
+        {
+            $data['password'] = Hash::make( $data['password'] );
+            $user->fill($data)->save();
 
+            return $this->respondWithItem( $user, new UserTransformer );
+        }
+
+        return $this->errorConflict();
+    }
 
     /**
      * Display the specified resource.
+     * GET /users/{id}
      *
-     * @param int     $id
+     * @param  int  $id
      * @return Response
      */
-    public function show( $id ) {
+    public function show($id)
+    {
         $user = User::find( $id );
         if ( is_null( $user ) ) {
             return $this->errorNotFound();
         }
-        //dd($user->created_at->toISO8601String())
         return $this->respondWithItem( $user, new UserTransformer );
     }
 
-
     /**
      * Update the specified resource in storage.
+     * PUT /users/{id}
      *
-     * @param int     $id
+     * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
+    public function update($id)
+    {
         $user = User::find( $id );
         if ( is_null( $user ) ) {
             return $this->errorNotFound();
         }
-
-        $password = Input::get( 'password' );
-        if(!is_null($password)) {
-            $user->password = Hash::make($password);
+        $data = Input::all();
+        if(!is_null($data->password)) {
+            $user->password = Hash::make($data->password);
         }
-        $isAdmin = Input::get( 'isAdmin' );
-        if(!is_null($isAdmin)) {
-            $user->super_user = $isAdmin;
+        if(!is_null($data->isAdmin)) {
+            $user->super_user = $data->isAdmin;
         }
-        $user->username = Input::get( 'username' );
+        $user->username = $data->username;
         $user->save();
         return $this->respondWithItem( $user, new UserTransformer );
     }
 
-
     /**
      * Remove the specified resource from storage.
+     * DELETE /users/{id}
      *
-     * @param int     $id
+     * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
+    public function destroy($id)
+    {
         $user = User::find( $id );
         if ( is_null( $user ) ) {
             return $this->errorNotFound();

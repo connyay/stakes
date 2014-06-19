@@ -11,14 +11,14 @@ class User extends BaseModel implements UserInterface
      */
     protected $table = 'users';
 
-    protected $fillable = array( 'username', 'password' );
+    protected $fillable = [ 'username', 'password' ];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = array( 'password' );
+    protected $hidden = [ 'password' ];
 
     /**
      * Get the unique identifier for the user.
@@ -53,6 +53,14 @@ class User extends BaseModel implements UserInterface
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    protected function getRules()
+    {
+        $unique_username = 'unique:users,username,' . $this->id;
+        return [
+            'username' => $unique_username
+        ];
     }
 
 }
