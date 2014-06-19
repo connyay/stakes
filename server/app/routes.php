@@ -15,7 +15,9 @@ Route::get('/', function() {
     return View::make('root');
 });
 
+Route::post('login', array('as' => 'login', 'uses' => 'Stakes\Controllers\AuthController@login'));
+Route::post('logout', array('as' => 'logout', 'uses' => 'Stakes\Controllers\AuthController@logout'));
 
 
 Route::resource('users', 'Stakes\Controllers\UserController',
-    array('except' => array('create', 'edit')));
+    ['except' => ['create', 'edit']]);

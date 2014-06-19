@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Stakes</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-
+        <script>var AUTH_USER = Object.freeze(@user);</script>
         {{ HTML::style('assets/css/bootstrap.min.css') }}
         {{ HTML::style('assets/css/font-awesome.min.css') }}
         {{ HTML::style('assets/css/stakes.css') }}
