@@ -1,19 +1,23 @@
 {
-    "name": "stakes",
-    "main": "app.js",
-    "version": "0.0.1",
-    "authors": [
-        "connyay <conn.hindley@gmail.com>"
-    ],
-    "license": "MIT",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components"
-    ],
-    "devDependencies": {
-        "angular": "~1.2.14",
-        "angular-route": "~1.2.14"
-    }
+  "name": "stakes",
+  "main": "app.js",
+  "version": "0.0.1",
+  "authors": [
+    "connyay <conn.hindley@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "devDependencies": {
+    "angular": "~1.2.14",
+    "angular-route": "~1.2.14",
+    "angular-resource": "~1.2.18"
+  },
+  "resolutions": {
+    "angular": "1.2.18"
+  }
 }

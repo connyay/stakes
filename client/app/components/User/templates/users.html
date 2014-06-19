@@ -1,0 +1,59 @@
+<section class="content-header">
+    <h1>Users</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="box box-primary">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Creation Date</th>
+                            <th>Admin</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr ng-repeat="user in users">
+                            <td><a ng-href="#/users/{{user.id}}">{{user.id}}</a>
+                            </td>
+                            <td><a ng-href="#/users/{{user.id}}">{{user.username}}</a>
+                            </td>
+                            <td>{{user.created | date:'MM/dd/yyyy @ h:mma'}}</td>
+                            <td>
+                                <span class="label label-success" ng-if="user.isAdmin" title="{{user.username}} is an admin">Yes</span>
+                                <span class="label label-danger" ng-if="!user.isAdmin" title="{{user.username}} is not an admin">No</span>
+                            </td>
+                            <td><a ng-href="#/users/{{user.id}}/edit" title="Edit {{user.username}}">Edit</a> | <a href ng-click="deleteUser(user)" title="Delete {{user.username}}">Delete</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+    <div class="col-md-11 no-padding">
+        <!-- general form elements -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Create User</h3>
+            </div>
+            <!-- /.box-header -->
+            <form class="form-inline" role="form">
+                <div class="box-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="newUser.username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" ng-model="newUser.password" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="addUser()">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

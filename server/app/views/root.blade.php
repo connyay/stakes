@@ -10,7 +10,7 @@
         {{ HTML::style('assets/css/stakes.css') }}
 
     </head>
-    <body class="skin-black" ng-app="stakes-client">
+    <body class="skin-black" ng-app="stakes">
         <brand-header></brand-header>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <aside class="left-side sidebar-offcanvas">

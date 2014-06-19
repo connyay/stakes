@@ -1,10 +1,15 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-client', ['ngRoute', 'stakes-ng-main', 'templates', 'brandHeaderDirective', 'sideNavDirective'])
+    angular.module('stakes', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user',
+        'templates', 'brandHeaderDirective', 'sideNavDirective'
+    ])
         .config(function($routeProvider) {
-            // Our default route will be to the dashboard page
             $routeProvider
+                .when('/dashboard', {
+                    templateUrl: 'components/Dashboard/templates/dashboard.html',
+                    controller: 'DashboardCtrl'
+                })
                 .otherwise({
                     redirectTo: '/dashboard'
                 });

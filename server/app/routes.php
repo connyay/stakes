@@ -11,12 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
+Route::get('/', function() {
     return View::make('root');
 });
 
-Route::group( array( 'prefix' => 'api', 'namespace' => 'Stakes\Controllers' ), function () {
-        Route::get( '/users', array( 'uses' => 'UserController@listAll' ) );
-        Route::post( '/user', array( 'uses' => 'UserController@addUser' ) );
-    } );
+
+
+Route::resource('users', 'Stakes\Controllers\UserController',
+    array('except' => array('create', 'edit')));

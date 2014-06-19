@@ -45,7 +45,6 @@ gulp.task('watch', function() {
     gulp.watch(['!./app/index.html', './app/**/*.html'], ['templates']);
 
 });
-
 gulp.task('connect', plugins.connect.server({
     root: ['../server/public'],
     port: 9000,
