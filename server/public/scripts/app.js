@@ -69,11 +69,12 @@
     angular.module('stakes-user.controllers', ['stakes-user.data'])
         .controller('ListUsersCtrl', function($scope, User) {
             $scope.users = User.query();
-            $scope.addUser = function() {
+            $scope.addUser = function(evt) {
                 if ($scope.newUser.username && $scope.newUser.password) {
                     User.create($scope.newUser, function(user) {
                         $scope.users.push(user);
                         $scope.newUser = {};
+                        evt.target.getElementsByTagName('input').username.focus();
                     });
                 }
             };
