@@ -21,3 +21,9 @@ Route::post('logout', array('as' => 'logout', 'uses' => 'Stakes\Controllers\Auth
 
 Route::resource('users', 'Stakes\Controllers\UserController',
     ['except' => ['create', 'edit']]);
+
+Route::resource('accounts', 'Stakes\Controllers\AccountsController',
+    ['except' => ['create', 'edit']]);
+
+Route::resource('transactions', 'Stakes\Controllers\TransactionsController',
+    ['except' => ['create', 'edit']]);

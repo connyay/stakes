@@ -10,15 +10,15 @@ class CreateTransactionsTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
-		Schema::create('transactions', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('account');
-			$table->integer('amount');
-			$table->timestamps();
-		});
+	public function up() {
+		Schema::create( 'transactions', function( Blueprint $table ) {
+				$table->increments( 'id' );
+				$table->string( 'transaction_id' );
+				$table->integer( 'account_id' );
+				$table->integer( 'amount' );
+				$table->char( 'type', 1 );
+				$table->timestamps();
+			} );
 	}
 
 
@@ -27,9 +27,8 @@ class CreateTransactionsTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
-		Schema::drop('transactions');
+	public function down() {
+		Schema::drop( 'transactions' );
 	}
 
 }

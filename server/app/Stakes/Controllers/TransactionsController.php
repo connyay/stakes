@@ -1,6 +1,10 @@
-<?php
+<?php namespace Stakes\Controllers;
 
-class TransactionsController extends \BaseController {
+use Stakes\Transformers\TransactionTransformer;
+use Stakes\Models\Transaction;
+use Input, Validator, Hash;
+
+class TransactionsController extends ApiController {
 
 	/**
 	 * Display a listing of the resource.
@@ -8,9 +12,9 @@ class TransactionsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		//
+	public function index() {
+		$users = Transaction::get();
+		return $this->respondWithCollection( $users, new TransactionTransformer );
 	}
 
 	/**
@@ -19,8 +23,7 @@ class TransactionsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		//
 	}
 
@@ -28,11 +31,10 @@ class TransactionsController extends \BaseController {
 	 * Display the specified resource.
 	 * GET /transactions/{id}
 	 *
-	 * @param  int  $id
+	 * @param int     $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
+	public function show( $id ) {
 		//
 	}
 
@@ -40,11 +42,10 @@ class TransactionsController extends \BaseController {
 	 * Update the specified resource in storage.
 	 * PUT /transactions/{id}
 	 *
-	 * @param  int  $id
+	 * @param int     $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update( $id ) {
 		//
 	}
 
@@ -52,11 +53,10 @@ class TransactionsController extends \BaseController {
 	 * Remove the specified resource from storage.
 	 * DELETE /transactions/{id}
 	 *
-	 * @param  int  $id
+	 * @param int     $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy( $id ) {
 		//
 	}
 
