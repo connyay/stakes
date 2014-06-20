@@ -19,6 +19,10 @@ class ApiController extends Controller
     const CODE_INVALID_MIME_TYPE = 'GEN-UMWUT';
 
     public function __construct( Manager $fractal ) {
+        $includes = Input::get( 'include' );
+        if ( !is_null( $includes ) ) {
+            $fractal->parseIncludes( $includes );
+        }
         $this->fractal = $fractal;
     }
 

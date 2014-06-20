@@ -25,8 +25,7 @@ class User extends BaseModel implements UserInterface
      *
      * @return mixed
      */
-    public function getAuthIdentifier()
-    {
+    public function getAuthIdentifier() {
         return $this->getKey();
     }
 
@@ -35,32 +34,31 @@ class User extends BaseModel implements UserInterface
      *
      * @return string
      */
-    public function getAuthPassword()
-    {
+    public function getAuthPassword() {
         return $this->password;
     }
 
-    public function getRememberToken()
-    {
+    public function getRememberToken() {
         return $this->remember_token;
     }
 
-    public function setRememberToken($value)
-    {
+    public function setRememberToken( $value ) {
         $this->remember_token = $value;
     }
 
-    public function getRememberTokenName()
-    {
+    public function getRememberTokenName() {
         return 'remember_token';
     }
 
-    protected function getRules()
-    {
+    protected function getRules() {
         $unique_username = 'unique:users,username,' . $this->id;
         return [
-            'username' => $unique_username
+        'username' => $unique_username
         ];
+    }
+
+    public function account() {
+        return $this->hasOne( 'Stakes\Models\Account' );
     }
 
 }

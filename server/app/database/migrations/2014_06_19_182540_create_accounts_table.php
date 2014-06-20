@@ -10,15 +10,14 @@ class CreateAccountsTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
-		Schema::create('accounts', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('balance');
-			$table->integer('owner');
-			$table->timestamps();
-		});
+	public function up() {
+		Schema::create( 'accounts', function( Blueprint $table ) {
+				$table->increments( 'id' );
+				$table->string( 'account_id' );
+				$table->integer( 'user_id' );
+				$table->integer( 'balance' );
+				$table->timestamps();
+			} );
 	}
 
 
@@ -27,9 +26,8 @@ class CreateAccountsTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function down()
-	{
-		Schema::drop('accounts');
+	public function down() {
+		Schema::drop( 'accounts' );
 	}
 
 }

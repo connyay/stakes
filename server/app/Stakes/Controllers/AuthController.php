@@ -8,19 +8,16 @@ class AuthController extends ApiController
 {
 
 
-    public function login()
-    {
+    public function login() {
         $data = Input::all();
-        if (Auth::attempt(array('username' => $data['username'], 'password' => $data['password'])))
-        {
+        if ( Auth::attempt( array( 'username' => $data['username'], 'password' => $data['password'] ) ) ) {
             return $this->respondWithItem( Auth::user(), new UserTransformer );
         }
-        return $this->errorUnauthorized('Could not login');
+        return $this->errorUnauthorized( 'Could not login' );
     }
 
 
-    public function logout()
-    {
+    public function logout() {
         Auth::logout();
         return $this->success();
     }

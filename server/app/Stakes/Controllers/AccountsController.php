@@ -1,6 +1,10 @@
-<?php
+<?php namespace Stakes\Controllers;
 
-class AccountsController extends \BaseController {
+use Stakes\Transformers\AccountTransformer;
+use Stakes\Models\Account;
+use Input, Validator, Hash;
+
+class AccountsController extends ApiController {
 
 	/**
 	 * Display a listing of the resource.
@@ -8,9 +12,9 @@ class AccountsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
-		//
+	public function index() {
+		$users = Account::get();
+		return $this->respondWithCollection( $users, new AccountTransformer );
 	}
 
 	/**
@@ -19,8 +23,7 @@ class AccountsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store() {
 		//
 	}
 
@@ -28,11 +31,10 @@ class AccountsController extends \BaseController {
 	 * Display the specified resource.
 	 * GET /accounts/{id}
 	 *
-	 * @param  int  $id
+	 * @param int     $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
+	public function show( $id ) {
 		//
 	}
 
@@ -40,11 +42,10 @@ class AccountsController extends \BaseController {
 	 * Update the specified resource in storage.
 	 * PUT /accounts/{id}
 	 *
-	 * @param  int  $id
+	 * @param int     $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+	public function update( $id ) {
 		//
 	}
 
@@ -52,11 +53,10 @@ class AccountsController extends \BaseController {
 	 * Remove the specified resource from storage.
 	 * DELETE /accounts/{id}
 	 *
-	 * @param  int  $id
+	 * @param int     $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
+	public function destroy( $id ) {
 		//
 	}
 
