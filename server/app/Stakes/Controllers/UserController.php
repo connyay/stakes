@@ -13,8 +13,7 @@ class UserController extends ApiController
      *
      * @return Response
      */
-    public function index()
-    {
+    public function index() {
         $users = User::get();
         return $this->respondWithCollection( $users, new UserTransformer );
     }
@@ -25,17 +24,15 @@ class UserController extends ApiController
      *
      * @return Response
      */
-    public function store()
-    {
+    public function store() {
         $user = new User();
         $data = Input::all();
-        
-        $validator = Validator::make($data, User::getRules());
+
+        $validator = Validator::make( $data, User::getRules() );
         // attempt validation
-        if ($user->validate($data))
-        {
+        if ( $user->validate( $data ) ) {
             $data['password'] = Hash::make( $data['password'] );
-            $user->fill($data)->save();
+            $user->fill( $data )->save();
 
             return $this->respondWithItem( $user, new UserTransformer );
         }
@@ -47,11 +44,10 @@ class UserController extends ApiController
      * Display the specified resource.
      * GET /users/{id}
      *
-     * @param  int  $id
+     * @param int     $id
      * @return Response
      */
-    public function show($id)
-    {
+    public function show( $id ) {
         $user = User::find( $id );
         if ( is_null( $user ) ) {
             return $this->errorNotFound();
@@ -63,20 +59,19 @@ class UserController extends ApiController
      * Update the specified resource in storage.
      * PUT /users/{id}
      *
-     * @param  int  $id
+     * @param int     $id
      * @return Response
      */
-    public function update($id)
-    {
+    public function update( $id ) {
         $user = User::find( $id );
         if ( is_null( $user ) ) {
             return $this->errorNotFound();
         }
         $data = Input::all();
-        if(!is_null($data->password)) {
-            $user->password = Hash::make($data->password);
+        if ( !is_null( $data->password ) ) {
+            $user->password = Hash::make( $data->password );
         }
-        if(!is_null($data->isAdmin)) {
+        if ( !is_null( $data->isAdmin ) ) {
             $user->super_user = $data->isAdmin;
         }
         $user->username = $data->username;
@@ -88,11 +83,10 @@ class UserController extends ApiController
      * Remove the specified resource from storage.
      * DELETE /users/{id}
      *
-     * @param  int  $id
+     * @param int     $id
      * @return Response
      */
-    public function destroy($id)
-    {
+    public function destroy( $id ) {
         $user = User::find( $id );
         if ( is_null( $user ) ) {
             return $this->errorNotFound();
