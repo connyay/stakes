@@ -28,14 +28,12 @@ class AccountsController extends ApiController {
 		$data = Input::all();
 		// attempt validation
 		if ( $account->validate( $data ) ) {
-			dd( '2' );
 			$account->fill( $data )->save();
 			//dd($account);
 			return $this->respondWithItem( $account, new AccountTransformer );
 		}
-		dd( '3' );
 
-		return $this->errorConflict();
+		return $this->errorWrongArgs();
 	}
 
 	/**
