@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function() {
-    return View::make('root');
+    return View::make('index');
 });
 
 Route::post('login', array('as' => 'login', 'uses' => 'Stakes\Controllers\AuthController@login'));

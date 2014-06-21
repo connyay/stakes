@@ -1,22 +1,27 @@
-<section class="content-header">
-    <h1>{{user.username}}
-        <small>
-            <small>
-                <span class="label label-success" ng-if="user.isAdmin">Admin</span>
-            </small>
-        </small>
-    </h1>
+<header class="header bg-light dker">
+    <p>User &ndash; {{user.username}}</p>
+</header>
+<section class="scrollable wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <section class="panel-body">
+                    <h1>{{user.username}}
+                        <small>
+                            <small>
+                                <span class="label label-success" ng-if="user.isAdmin">Admin</span>
+                            </small>
+                        </small>
+                    </h1>
+
+                    <section ng-if="user.account">
+                        <account-overview account="user.account"></account-overview>
+                    </section>
+                    <section ng-if="!user.account">
+                        <div>No account found... Would you like to create one?</div>
+                    </section>
+                </section>
+            </section>
+        </div>
+    </div>
 </section>
-
-<!-- Main content -->
-<section class="content">
-
-    <section ng-if="user.account">
-        <account-overview account="user.account"></account-overview>
-    </section>
-    <section ng-if="!user.account">
-        <div>No account found... Would you like to create one?</div>
-    </section>
-
-</section>
-<!-- /.content -->

@@ -1,0 +1,32 @@
+<aside class="bg-dark aside-sm" id="nav">
+    <section class="vbox">
+        <header class="dker nav-bar">
+            <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a href="#" class="nav-brand" data-toggle="fullscreen">Stakes</a>
+        </header>
+        <section>
+            <nav class="nav-primary hidden-xs">
+                <ul class="nav">
+                    <li ng-repeat="item in navItems" ng-class="{'active':isActive('/{{item.route}}'), 'dropdown-submenu':item.subitems}">
+
+                        <a href="#{{item.route}}" title="{{item.title}}" ng-if="!item.subitems">
+                            <i class="fa fa-{{item.icon}}" ng-if="item.icon"></i>
+                            {{item.title}}
+                        </a>
+                        <a href class="dropdown-toggle" ng-if="item.subitems" data-toggle="dropdown">
+                            <i class="fa fa-{{item.icon}}" ng-if="item.icon"></i>
+                            <span>{{item.title}}</span>
+                        </a>
+                        <ul class="dropdown-menu" ng-if="item.subitems">
+                            <li ng-repeat="item in item.subitems">
+                                <a href="#{{$parent.item.route + item.route}}">{{item.title}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+    </section>
+</aside>

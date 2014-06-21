@@ -11,7 +11,7 @@ class User extends BaseModel implements UserInterface
      */
     protected $table = 'users';
 
-    protected $fillable = [ 'username', 'password' ];
+    protected $fillable = [ 'username', 'password', 'super_user' ];
 
     /**
      * The attributes excluded from the model's JSON form.

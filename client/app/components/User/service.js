@@ -6,6 +6,14 @@
         }
         return obj.data;
     };
+    var serialize = function(data) {
+        debugger;
+        if (typeof data.isAdmin !== 'undefined') {
+            data.super_user = data.isAdmin;
+            delete data.isAdmin;
+        }
+        return JSON.stringify(data);
+    };
     var data = angular.module('stakes-user.data', ['ngResource']);
 
     data.factory('User', ['$resource',
@@ -35,12 +43,14 @@
                 'create': {
                     url: '/users',
                     method: 'POST',
-                    transformResponse: getData
+                    transformResponse: getData,
+                    transformRequest: serialize
                 },
                 'update': {
                     url: '/users/:userId',
                     method: 'PUT',
-                    transformResponse: getData
+                    transformResponse: getData,
+                    transformRequest: serialize
                 },
                 'delete': {
                     url: '/users/:userId',

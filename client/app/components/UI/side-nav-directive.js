@@ -10,7 +10,7 @@
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'components/nav/side-nav.html',
+            templateUrl: 'components/UI/side-nav.html',
             controller: 'NavCtrl'
         };
     })
@@ -26,8 +26,12 @@
             // is provided the lowercase'd title will be used
             $scope.navItems = [{
                 title: 'Dashboard',
+                route: 'dashboard',
+                icon: 'dashboard',
             }, {
                 title: 'Users',
+                icon: 'users',
+                route: 'users',
                 subitems: [{
                     title: 'All',
                     route: ''

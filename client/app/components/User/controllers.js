@@ -3,7 +3,10 @@
 
     angular.module('stakes-user.controllers', ['stakes-user.data'])
         .controller('ListUsersCtrl', function($scope, User) {
-            $scope.users = User.query();
+            $scope.inFlight = true;
+            $scope.users = User.query({}, function() {
+                $scope.inFlight = false;
+            });
             $scope.addUser = function(evt) {
                 if ($scope.newUser.username && $scope.newUser.password) {
                     User.create($scope.newUser, function(user) {
@@ -14,11 +17,9 @@
                 }
             };
             $scope.deleteUser = function(user) {
-                if (confirm('Are you sure you want to delete ' + user.username + '?')) {
-                    user.$delete().then(function() {
-                        $scope.users.splice($scope.users.indexOf(user), 1);
-                    });
-                }
+                user.$delete().then(function() {
+                    $scope.users.splice($scope.users.indexOf(user), 1);
+                });
             };
         })
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
@@ -28,22 +29,10 @@
                     userId: $routeParams.userId,
                     include: 'account,account.transactions'
                 });
-
-                $scope.editUser = function(user) {
-                    User.deleteUser(user).then(function() {
-                        $scope.users.splice($scope.users.indexOf(user), 1);
-                    });
-                };
-                $scope.deleteUser = function(user) {
-                    User.deleteUser(user).then(function() {
-                        $scope.users.splice($scope.users.indexOf(user), 1);
-                    });
-                };
             }
         ])
         .controller('NewUserCtrl', ['$scope', 'User',
             function($scope, User) {
-
 
             }
         ])

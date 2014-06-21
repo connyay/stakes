@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('stakes', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user', 'stakes-account',
-        'templates', 'brandHeaderDirective', 'sideNavDirective'
+        'templates', 'loadingDirective', 'sideNavDirective'
     ])
         .config(function($routeProvider) {
             $routeProvider
@@ -14,46 +14,6 @@
                     redirectTo: '/dashboard'
                 });
         });
-
-})();
-(function() {
-    'use strict';
-
-    angular.module('brandHeaderDirective', [])
-    /*
-     * <brand-header> Directive.
-     * Not a whole lot of functionality right now. But the login/logout & help can be wired up here.
-     */
-    .directive('brandHeader', function() {
-        return {
-            restrict: 'E',
-            replace: true,
-            templateUrl: 'components/brand-header.html',
-            controller: function($scope) {
-                $scope.toggle = function() {
-                    //If window is small enough, enable sidebar push menu
-                    if ($(window).width() <= 992) {
-                        $('.row-offcanvas').toggleClass('active');
-                        $('.left-side').removeClass("collapse-left");
-                        $(".right-side").removeClass("strech");
-                        $('.row-offcanvas').toggleClass("relative");
-                    } else {
-                        //Else, enable content streching
-                        $('.left-side').toggleClass("collapse-left");
-                        $(".right-side").toggleClass("strech");
-                    }
-                };
-                $scope.doLogout = function() {
-                    // Super helpful alert
-                    alert('Logout');
-                };
-                $scope.doHelp = function() {
-                    // Super helpful alert
-                    alert('Help');
-                };
-            },
-        };
-    });
 
 })();
 (function() {
@@ -89,9 +49,74 @@
 (function() {
     'use strict';
 
+    angular.module('loadingDirective', [])
+        .directive('loading', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/UI/loading.html'
+            };
+        });
+
+})();
+(function() {
+    'use strict';
+
+    angular.module('sideNavDirective', [])
+    /*
+     * <side-nav> Directive.
+     * Builds the left navigation from a list of navItems
+     */
+    .directive('sideNav', function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: 'components/UI/side-nav.html',
+            controller: 'NavCtrl'
+        };
+    })
+    /*
+     * Navigation Controller
+     * Uses the navItem array to build a list of navigation.
+     * Provides an isActive filter to determine if the provided route is active
+     */
+    .controller('NavCtrl', ['$scope', '$location',
+        function($scope, $location) {
+            // Items to show in the side navigation.
+            // Object with a title and route property. If no route
+            // is provided the lowercase'd title will be used
+            $scope.navItems = [{
+                title: 'Dashboard',
+                route: 'dashboard',
+                icon: 'dashboard',
+            }, {
+                title: 'Users',
+                icon: 'users',
+                route: 'users',
+                subitems: [{
+                    title: 'All',
+                    route: ''
+                }, {
+                    title: 'New',
+                    route: '/new'
+                }]
+            }];
+            // Used to set the active class on the nav li elements
+            $scope.isActive = function(route) {
+                return route === $location.path();
+            };
+        }
+    ]);
+
+})();
+(function() {
+    'use strict';
+
     angular.module('stakes-user.controllers', ['stakes-user.data'])
         .controller('ListUsersCtrl', function($scope, User) {
-            $scope.users = User.query();
+            $scope.inFlight = true;
+            $scope.users = User.query({}, function() {
+                $scope.inFlight = false;
+            });
             $scope.addUser = function(evt) {
                 if ($scope.newUser.username && $scope.newUser.password) {
                     User.create($scope.newUser, function(user) {
@@ -102,11 +127,9 @@
                 }
             };
             $scope.deleteUser = function(user) {
-                if (confirm('Are you sure you want to delete ' + user.username + '?')) {
-                    user.$delete().then(function() {
-                        $scope.users.splice($scope.users.indexOf(user), 1);
-                    });
-                }
+                user.$delete().then(function() {
+                    $scope.users.splice($scope.users.indexOf(user), 1);
+                });
             };
         })
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
@@ -116,22 +139,10 @@
                     userId: $routeParams.userId,
                     include: 'account,account.transactions'
                 });
-
-                $scope.editUser = function(user) {
-                    User.deleteUser(user).then(function() {
-                        $scope.users.splice($scope.users.indexOf(user), 1);
-                    });
-                };
-                $scope.deleteUser = function(user) {
-                    User.deleteUser(user).then(function() {
-                        $scope.users.splice($scope.users.indexOf(user), 1);
-                    });
-                };
             }
         ])
         .controller('NewUserCtrl', ['$scope', 'User',
             function($scope, User) {
-
 
             }
         ])
@@ -188,6 +199,14 @@
         }
         return obj.data;
     };
+    var serialize = function(data) {
+        debugger;
+        if (typeof data.isAdmin !== 'undefined') {
+            data.super_user = data.isAdmin;
+            delete data.isAdmin;
+        }
+        return JSON.stringify(data);
+    };
     var data = angular.module('stakes-user.data', ['ngResource']);
 
     data.factory('User', ['$resource',
@@ -217,64 +236,20 @@
                 'create': {
                     url: '/users',
                     method: 'POST',
-                    transformResponse: getData
+                    transformResponse: getData,
+                    transformRequest: serialize
                 },
                 'update': {
                     url: '/users/:userId',
                     method: 'PUT',
-                    transformResponse: getData
+                    transformResponse: getData,
+                    transformRequest: serialize
                 },
                 'delete': {
                     url: '/users/:userId',
                     method: 'DELETE'
                 },
             });
-        }
-    ]);
-
-})();
-(function() {
-    'use strict';
-
-    angular.module('sideNavDirective', [])
-    /*
-     * <side-nav> Directive.
-     * Builds the left navigation from a list of navItems
-     */
-    .directive('sideNav', function() {
-        return {
-            restrict: 'E',
-            replace: true,
-            templateUrl: 'components/nav/side-nav.html',
-            controller: 'NavCtrl'
-        };
-    })
-    /*
-     * Navigation Controller
-     * Uses the navItem array to build a list of navigation.
-     * Provides an isActive filter to determine if the provided route is active
-     */
-    .controller('NavCtrl', ['$scope', '$location',
-        function($scope, $location) {
-            // Items to show in the side navigation.
-            // Object with a title and route property. If no route
-            // is provided the lowercase'd title will be used
-            $scope.navItems = [{
-                title: 'Dashboard',
-            }, {
-                title: 'Users',
-                subitems: [{
-                    title: 'All',
-                    route: ''
-                }, {
-                    title: 'New',
-                    route: '/new'
-                }]
-            }];
-            // Used to set the active class on the nav li elements
-            $scope.isActive = function(route) {
-                return route === $location.path();
-            };
         }
     ]);
 
