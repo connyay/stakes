@@ -31,7 +31,11 @@ class UserController extends ApiController
         // attempt validation
         if ( $user->validate( $data ) ) {
             $data['password'] = Hash::make( $data['password'] );
-            $user->fill( $data )->save();
+            $user = $user->fill( $data );
+            if ( isset( $data['isAdmin'] ) ) {
+                $user->super_user = $data['isAdmin'];
+            }
+            $user->save();
 
             return $this->respondWithItem( $user, new UserTransformer );
         }
