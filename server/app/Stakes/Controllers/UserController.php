@@ -2,7 +2,7 @@
 
 use Stakes\Transformers\UserTransformer;
 use Stakes\Models\User;
-use Input, Validator, Hash;
+use Input, Hash;
 
 class UserController extends ApiController
 {
@@ -28,7 +28,6 @@ class UserController extends ApiController
         $user = new User();
         $data = Input::all();
 
-        $validator = Validator::make( $data, User::getRules() );
         // attempt validation
         if ( $user->validate( $data ) ) {
             $data['password'] = Hash::make( $data['password'] );

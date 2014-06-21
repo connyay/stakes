@@ -2,7 +2,7 @@
 
 use Stakes\Transformers\TransactionTransformer;
 use Stakes\Models\Transaction;
-use Input, Validator, Hash;
+use Input, Hash;
 
 class TransactionsController extends ApiController {
 

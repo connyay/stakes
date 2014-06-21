@@ -13,7 +13,7 @@ class BaseModel extends \Illuminate\Database\Eloquent\Model
         // check for failure
         if ( $v->fails() ) {
             // set errors and return false
-            $this->errors = $v->errors;
+            $this->errors = $v->errors();
             return false;
         }
 

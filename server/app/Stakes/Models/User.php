@@ -51,7 +51,10 @@ class User extends BaseModel implements UserInterface
     }
 
     protected function getRules() {
-        $unique_username = 'unique:users,username,' . $this->id;
+        $unique_username = 'unique:users,username';
+        if ( $this->id ) {
+            $unique_username .= ', '. $this->id;
+        }
         return [
         'username' => $unique_username
         ];

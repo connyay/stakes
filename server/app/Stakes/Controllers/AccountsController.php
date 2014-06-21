@@ -2,7 +2,7 @@
 
 use Stakes\Transformers\AccountTransformer;
 use Stakes\Models\Account;
-use Input, Validator, Hash;
+use Input, Hash;
 
 class AccountsController extends ApiController {
 
@@ -24,7 +24,18 @@ class AccountsController extends ApiController {
 	 * @return Response
 	 */
 	public function store() {
-		//
+		$account = new Account();
+		$data = Input::all();
+		// attempt validation
+		if ( $account->validate( $data ) ) {
+			dd( '2' );
+			$account->fill( $data )->save();
+			//dd($account);
+			return $this->respondWithItem( $account, new AccountTransformer );
+		}
+		dd( '3' );
+
+		return $this->errorConflict();
 	}
 
 	/**
@@ -35,7 +46,11 @@ class AccountsController extends ApiController {
 	 * @return Response
 	 */
 	public function show( $id ) {
-		//
+		$account = Account::find( $id );
+		if ( is_null( $account ) ) {
+			return $this->errorNotFound();
+		}
+		return $this->respondWithItem( $account, new AccountTransformer );
 	}
 
 	/**
@@ -57,7 +72,12 @@ class AccountsController extends ApiController {
 	 * @return Response
 	 */
 	public function destroy( $id ) {
-		//
+		$account = Account::where( 'account_id', '=', $id )->first();
+		if ( is_null( $account ) ) {
+			return $this->errorNotFound();
+		}
+		$account->delete();
+		return $this->success();
 	}
 
 }

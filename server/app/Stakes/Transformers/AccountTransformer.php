@@ -10,7 +10,7 @@ class AccountTransformer extends Fractal\TransformerAbstract
 
     public function transform( Account $account ) {
         return [
-        'id'      => $account->account_id,
+        'id'      => (string) $account->account_id,
         'balance'   => (int) $account->balance
         ];
     }
