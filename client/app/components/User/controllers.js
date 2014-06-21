@@ -15,9 +15,7 @@
             };
             $scope.deleteUser = function(user) {
                 if (confirm('Are you sure you want to delete ' + user.username + '?')) {
-                    User.delete({
-                        userId: user.id
-                    }, function() {
+                    user.$delete().then(function() {
                         $scope.users.splice($scope.users.indexOf(user), 1);
                     });
                 }
@@ -27,7 +25,8 @@
             function($scope, $routeParams, User) {
 
                 $scope.user = User.get({
-                    userId: $routeParams.userId
+                    userId: $routeParams.userId,
+                    include: 'account,account.transactions'
                 });
 
                 $scope.editUser = function(user) {
@@ -42,6 +41,12 @@
                 };
             }
         ])
+        .controller('NewUserCtrl', ['$scope', 'User',
+            function($scope, User) {
+
+
+            }
+        ])
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
             function($scope, $routeParams, User, $location) {
                 $scope.user = User.get({
@@ -54,9 +59,7 @@
                         // Changing password
                         $scope.user.password = $scope.newPassword;
                     }
-                    User.update({
-                        userId: $routeParams.userId
-                    }, $scope.user, function() {
+                    $scope.user.$update().then(function() {
                         $location.path('/users/' + $scope.user.id);
                     });
                 };

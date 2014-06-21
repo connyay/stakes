@@ -1,9 +1,22 @@
 <section class="content-header">
-    <h1>{{user.username}} <small><small><span class="label label-success" ng-if="user.isAdmin">Admin</span></small></small></h1>
+    <h1>{{user.username}}
+        <small>
+            <small>
+                <span class="label label-success" ng-if="user.isAdmin">Admin</span>
+            </small>
+        </small>
+    </h1>
 </section>
 
 <!-- Main content -->
 <section class="content">
 
-</section><!-- /.content -->
+    <section ng-if="user.account">
+        <account-overview account="user.account"></account-overview>
+    </section>
+    <section ng-if="!user.account">
+        <div>No account found... Would you like to create one?</div>
+    </section>
 
+</section>
+<!-- /.content -->

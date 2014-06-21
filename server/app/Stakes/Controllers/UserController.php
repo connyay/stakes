@@ -67,13 +67,13 @@ class UserController extends ApiController
             return $this->errorNotFound();
         }
         $data = Input::all();
-        if ( !is_null( $data->password ) ) {
-            $user->password = Hash::make( $data->password );
+        if ( isset( $data['password'] ) ) {
+            $user->password = Hash::make( $data['password'] );
         }
-        if ( !is_null( $data->isAdmin ) ) {
-            $user->super_user = $data->isAdmin;
+        if ( isset( $data['isAdmin'] ) ) {
+            $user->super_user = $data['isAdmin'];
         }
-        $user->username = $data->username;
+        $user->username = $data['username'];
         $user->save();
         return $this->respondWithItem( $user, new UserTransformer );
     }

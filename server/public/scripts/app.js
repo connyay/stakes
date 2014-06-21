@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user',
+    angular.module('stakes', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user', 'stakes-account',
         'templates', 'brandHeaderDirective', 'sideNavDirective'
     ])
         .config(function($routeProvider) {
@@ -59,6 +59,29 @@
 (function() {
     'use strict';
 
+    angular.module('stakes-account.directives', [])
+        .directive('accountOverview', function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'components/Account/templates/account-overview.html',
+                scope: {
+                    account: '='
+                },
+                controller: function($scope) {}
+            };
+
+        });
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-account', ['stakes-account.directives']);
+
+})();
+(function() {
+    'use strict';
+
     angular.module('stakes-dashboard.controllers', [])
         .controller('DashboardCtrl', function($scope) {});
 
@@ -80,9 +103,7 @@
             };
             $scope.deleteUser = function(user) {
                 if (confirm('Are you sure you want to delete ' + user.username + '?')) {
-                    User.delete({
-                        userId: user.id
-                    }, function() {
+                    user.$delete().then(function() {
                         $scope.users.splice($scope.users.indexOf(user), 1);
                     });
                 }
@@ -92,7 +113,8 @@
             function($scope, $routeParams, User) {
 
                 $scope.user = User.get({
-                    userId: $routeParams.userId
+                    userId: $routeParams.userId,
+                    include: 'account,account.transactions'
                 });
 
                 $scope.editUser = function(user) {
@@ -107,6 +129,12 @@
                 };
             }
         ])
+        .controller('NewUserCtrl', ['$scope', 'User',
+            function($scope, User) {
+
+
+            }
+        ])
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
             function($scope, $routeParams, User, $location) {
                 $scope.user = User.get({
@@ -119,9 +147,7 @@
                         // Changing password
                         $scope.user.password = $scope.newPassword;
                     }
-                    User.update({
-                        userId: $routeParams.userId
-                    }, $scope.user, function() {
+                    $scope.user.$update().then(function() {
                         $location.path('/users/' + $scope.user.id);
                     });
                 };
@@ -139,6 +165,10 @@
                     templateUrl: 'components/User/templates/users.html',
                     controller: 'ListUsersCtrl'
                 })
+                .when('/users/new', {
+                    templateUrl: 'components/User/templates/user-create.html',
+                    controller: 'NewUserCtrl'
+                })
                 .when('/users/:userId', {
                     templateUrl: 'components/User/templates/user.html',
                     controller: 'ViewUserCtrl'
@@ -146,46 +176,53 @@
                 .when('/users/:userId/edit', {
                     templateUrl: 'components/User/templates/user-edit.html',
                     controller: 'EditUserCtrl'
-                })
-                .when('/users/:userId/new', {
-                    templateUrl: 'components/User/templates/user-create.html',
-                    controller: 'NewUserCtrl'
                 });
         });
 
 })();
 (function() {
     'use strict';
-
+    var getData = function(obj) {
+        if (typeof obj === 'string') {
+            obj = angular.fromJson(obj);
+        }
+        return obj.data;
+    };
     var data = angular.module('stakes-user.data', ['ngResource']);
 
     data.factory('User', ['$resource',
         function($resource) {
-            return $resource('/users', {}, {
+            return $resource('/users', {
+                userId: '@id'
+            }, {
                 'query': {
                     method: 'GET',
                     isArray: true,
-                    transformResponse: function(data) {
-                        return angular.fromJson(data).data;
-                    }
+                    transformResponse: getData
                 },
                 'get': {
                     url: '/users/:userId',
                     method: 'GET',
                     transformResponse: function(data) {
-                        return angular.fromJson(data).data;
+                        var user = getData(data);
+                        if (user.account) {
+                            user.account = getData(user.account);
+                            if (user.account.transactions) {
+                                user.account.transactions = getData(user.account.transactions);
+                            }
+                        }
+                        return user;
                     }
                 },
                 'create': {
                     url: '/users',
                     method: 'POST',
-                    transformResponse: function(data) {
-                        return angular.fromJson(data).data;
-                    }
+                    transformResponse: getData
                 },
                 'update': {
                     url: '/users/:userId',
-                    method: 'PUT'
+                    method: 'PUT',
+                    transformResponse: getData
                 },
                 'delete': {
                     url: '/users/:userId',
