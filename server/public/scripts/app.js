@@ -23,7 +23,6 @@
         .directive('accountOverview', function() {
             return {
                 restrict: 'E',
-                replace: true,
                 templateUrl: 'components/Account/templates/account-overview.html',
                 scope: {
                     account: '='

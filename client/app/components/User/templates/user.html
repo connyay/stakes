@@ -15,12 +15,8 @@
                         </small>
                     </h1>
 
-                    <section ng-if="user.account">
-                        <account-overview account="user.account"></account-overview>
-                    </section>
-                    <section ng-if="!user.account">
-                        <div>No account found... Would you like to create one?</div>
-                    </section>
+                    <hr>
+                    <account-overview account="user.account"></account-overview>
                 </section>
             </section>
         </div>

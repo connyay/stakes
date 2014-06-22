@@ -1,4 +1,4 @@
-<section>
+<section ng-if="account">
     <h1>Account Overview</h1>
 
     <table>
@@ -13,4 +13,8 @@
             <td>{{account.balance}}</td>
         </tr>
     </table>
+</section>
+<section ng-if="!account">
+    <h5>No account found...</h5>
+    <a href>Click here to create one.</a>
 </section>
