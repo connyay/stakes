@@ -20,6 +20,14 @@
                 scope: {
                     user: '=',
                     submit: '&'
+                },
+                controller: function($scope) {
+                    $scope.isDisabled = function() {
+                        if (!$scope.user || !$scope.user.username || !$scope.user.password) {
+                            return true;
+                        }
+                        return !$scope.user.username.length || !$scope.user.password.length;
+                    }
                 }
             };
         });
