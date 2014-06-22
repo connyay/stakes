@@ -35,7 +35,11 @@ class TransactionsController extends ApiController {
 	 * @return Response
 	 */
 	public function show( $id ) {
-		//
+		$transaction = Transaction::where( 'transaction_id', '=', $id )->first();
+		if ( is_null( $transaction ) ) {
+			return $this->errorNotFound();
+		}
+		return $this->respondWithItem( $transaction, new TransactionTransformer );
 	}
 
 	/**
