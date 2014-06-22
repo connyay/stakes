@@ -27,11 +27,11 @@ class UserController extends ApiController
     public function store() {
         $user = new User();
         $data = Input::all();
+        $user->fill( $data );
 
         // attempt validation
-        if ( $user->validate( $data ) ) {
+        if ( $user->isValid() ) {
             $data['password'] = Hash::make( $data['password'] );
-            $user = $user->fill( $data );
             if ( isset( $data['isAdmin'] ) ) {
                 $user->super_user = $data['isAdmin'];
             }
@@ -40,7 +40,7 @@ class UserController extends ApiController
             return $this->respondWithItem( $user, new UserTransformer );
         }
 
-        return $this->errorConflict();
+        return $this->errorConflict( $user->getErrors()->toArray() );
     }
 
     /**

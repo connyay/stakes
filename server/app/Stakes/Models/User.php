@@ -1,9 +1,16 @@
 <?php namespace Stakes\Models;
 
 use Illuminate\Auth\UserInterface;
+use Watson\Validating\ValidatingTrait;
 
 class User extends BaseModel implements UserInterface
 {
+    use ValidatingTrait;
+
+    protected $rules = [
+    'username'   => 'unique:users,username'
+    ];
+
     /**
      * The database table used by the model.
      *
@@ -11,7 +18,7 @@ class User extends BaseModel implements UserInterface
      */
     protected $table = 'users';
 
-    protected $fillable = [ 'username', 'password', 'super_user' ];
+    protected $fillable = [ 'username', 'super_user' ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -48,16 +55,6 @@ class User extends BaseModel implements UserInterface
 
     public function getRememberTokenName() {
         return 'remember_token';
-    }
-
-    protected function getRules() {
-        $unique_username = 'unique:users,username';
-        if ( $this->id ) {
-            $unique_username .= ', '. $this->id;
-        }
-        return [
-        'username' => $unique_username
-        ];
     }
 
     public function account() {

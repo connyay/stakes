@@ -26,10 +26,10 @@ class AccountsController extends ApiController {
 	public function store() {
 		$account = new Account();
 		$data = Input::all();
+		$account->fill( $data )
 		// attempt validation
-		if ( $account->validate( $data ) ) {
-			$account->fill( $data )->save();
-			//dd($account);
+		if ( $account->isValid() ) {
+			$account->save();
 			return $this->respondWithItem( $account, new AccountTransformer );
 		}
 

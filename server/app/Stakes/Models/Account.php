@@ -1,8 +1,16 @@
 <?php namespace Stakes\Models;
 
 use Uuid;
+use Watson\Validating\ValidatingTrait;
 
 class Account extends BaseModel {
+
+    use ValidatingTrait;
+
+    protected $rules = [
+    'user_id'   => 'required'
+    ];
+
     protected $fillable = ['user_id', 'balance'];
 
 
@@ -21,9 +29,5 @@ class Account extends BaseModel {
 
     public function transactions() {
         return $this->hasMany( 'Stakes\Models\Transaction' );
-    }
-
-    protected function getRules() {
-        return [ 'user_id' => 'required' ];
     }
 }

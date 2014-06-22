@@ -5,6 +5,7 @@
     "require": {
         "laravel/framework": "4.2.*",
         "league/fractal": "0.8.*",
+        "watson/validating": "0.7.*",
         "webpatser/laravel-uuid": "dev-master"
     },
     "require-dev": {
