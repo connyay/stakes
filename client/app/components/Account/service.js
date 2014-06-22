@@ -23,6 +23,9 @@
                     method: 'GET',
                     transformResponse: function(data) {
                         var account = getData(data);
+                        if (account.user) {
+                            account.user = getData(account.user);
+                        }
                         return account;
                     }
                 },

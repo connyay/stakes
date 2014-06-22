@@ -2,11 +2,12 @@
 
 use League\Fractal;
 use Stakes\Models\Account;
+use Stakes\Transformers\UserTransformer;
 use Stakes\Transformers\TransactionTransformer;
 
 class AccountTransformer extends Fractal\TransformerAbstract
 {
-    protected $availableIncludes = ['transactions'];
+    protected $availableIncludes = [ 'user', 'transactions'];
 
     public function transform( Account $account ) {
         return [
@@ -16,6 +17,12 @@ class AccountTransformer extends Fractal\TransformerAbstract
         'losses'   => (int) $account->losses,
         'created'   => $account->created_at->toISO8601String()
         ];
+    }
+
+    public function includeUser( Account $account ) {
+        $user = $account->user;
+
+        return $this->item( $user, new UserTransformer );
     }
 
     public function includeTransactions( Account $account ) {

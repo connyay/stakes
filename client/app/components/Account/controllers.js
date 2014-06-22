@@ -9,7 +9,8 @@
         })
         .controller('ViewAccountCtrl', function($scope, $routeParams, Account) {
             Account.get({
-                id: $routeParams.id
+                id: $routeParams.id,
+                include: 'user'
             }, function(account) {
                 $scope.account = account;
             });

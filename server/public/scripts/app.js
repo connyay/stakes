@@ -38,7 +38,8 @@
         })
         .controller('ViewAccountCtrl', function($scope, $routeParams, Account) {
             Account.get({
-                id: $routeParams.id
+                id: $routeParams.id,
+                include: 'user'
             }, function(account) {
                 $scope.account = account;
             });
@@ -102,6 +103,9 @@
                     method: 'GET',
                     transformResponse: function(data) {
                         var account = getData(data);
+                        if (account.user) {
+                            account.user = getData(account.user);
+                        }
                         return account;
                     }
                 },
