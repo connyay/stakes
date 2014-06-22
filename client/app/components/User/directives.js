@@ -12,6 +12,16 @@
                     submit: '&'
                 }
             };
+        })
+        .directive('userQuickCreate', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/User/templates/user-quick-create.html',
+                scope: {
+                    user: '=',
+                    submit: '&'
+                }
+            };
         });
 
 })();

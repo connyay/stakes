@@ -110,27 +110,33 @@
 })();
 (function() {
     'use strict';
-
+    var resetFocus = function() {
+        angular.element('[name="username"]').trigger('focus');
+    };
     angular.module('stakes-user.controllers', ['stakes-user.data'])
-        .controller('ListUsersCtrl', function($scope, User) {
+        .controller('ListUsersCtrl', function($scope, User, $timeout) {
             $scope.inFlight = true;
             $scope.newUser = new User();
             $scope.users = User.query({}, function() {
                 $scope.inFlight = false;
             });
-            $scope.addUser = function(evt) {
-                if ($scope.newUser.username && $scope.newUser.password) {
-                    $scope.newUser.password_confirmation = $scope.newUser.password;
-                    $scope.newUser.save().then(function(user) {
-                        $scope.users.push(user);
-                        $scope.newUser = new User();
-                        evt.target.getElementsByTagName('input').username.focus();
-                    });
-                }
+            $scope.addUser = function() {
+                $scope.newUser.password_confirmation = $scope.newUser.password;
+                $scope.newUser.$create({}, function(user) {
+                    $scope.users.push(user);
+                    $scope.newUser = new User();
+                    $timeout(resetFocus, 0, false);
+                });
             };
             $scope.deleteUser = function(user) {
                 user.$delete().then(function() {
                     $scope.users.splice($scope.users.indexOf(user), 1);
+                });
+            };
+
+            $scope.refresh = function() {
+                User.query({}, function(users) {
+                    $scope.users = users;
                 });
             };
         })
@@ -183,6 +189,16 @@
                 templateUrl: 'components/User/templates/user-form.html',
                 scope: {
                     submitText: '@',
+                    user: '=',
+                    submit: '&'
+                }
+            };
+        })
+        .directive('userQuickCreate', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/User/templates/user-quick-create.html',
+                scope: {
                     user: '=',
                     submit: '&'
                 }
