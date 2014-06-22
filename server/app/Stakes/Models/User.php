@@ -8,7 +8,7 @@ class User extends BaseModel implements UserInterface
     use ValidatingTrait;
 
     protected $rules = [
-    'username'   => 'unique:users,username',
+    'username'   => 'required|unique:users,username',
     'password'   => 'sometimes|required|confirmed'
     ];
 
