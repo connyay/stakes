@@ -26,7 +26,7 @@ class AccountsController extends ApiController {
 	public function store() {
 		$account = new Account();
 		$data = Input::all();
-		$account->fill( $data )
+		$account->fill( $data );
 		// attempt validation
 		if ( $account->isValid() ) {
 			$account->save();
@@ -44,7 +44,7 @@ class AccountsController extends ApiController {
 	 * @return Response
 	 */
 	public function show( $id ) {
-		$account = Account::find( $id );
+		$account = Account::where( 'account_id', '=', $id )->first();
 		if ( is_null( $account ) ) {
 			return $this->errorNotFound();
 		}

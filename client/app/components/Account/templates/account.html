@@ -1,0 +1,12 @@
+<header class="header b-b bg-white-only">
+    <p>Account</p>
+</header>
+<section class="scrollable wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <loading ng-if="!account"></loading>
+            <account-overview account="account" ng-if="account"></account-overview>
+        </div>
+    </div>
+</section>
