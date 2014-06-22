@@ -114,15 +114,16 @@
     angular.module('stakes-user.controllers', ['stakes-user.data'])
         .controller('ListUsersCtrl', function($scope, User) {
             $scope.inFlight = true;
+            $scope.newUser = new User();
             $scope.users = User.query({}, function() {
                 $scope.inFlight = false;
             });
             $scope.addUser = function(evt) {
                 if ($scope.newUser.username && $scope.newUser.password) {
                     $scope.newUser.password_confirmation = $scope.newUser.password;
-                    User.create($scope.newUser, function(user) {
+                    $scope.newUser.save().then(function(user) {
                         $scope.users.push(user);
-                        $scope.newUser = {};
+                        $scope.newUser = new User();
                         evt.target.getElementsByTagName('input').username.focus();
                     });
                 }
