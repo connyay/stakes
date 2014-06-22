@@ -1,20 +1,32 @@
-<section ng-if="account">
-    <h1>Account Overview</h1>
-
-    <table>
-        <tr>
-            <td><b>ID</b>
-            </td>
-            <td>{{account.id}}</td>
-        </tr>
-        <tr>
-            <td><b>Balance</b>
-            </td>
-            <td>{{account.balance}}</td>
-        </tr>
-    </table>
-</section>
-<section ng-if="!account">
-    <h5>No account found...</h5>
-    <a href>Click here to create one.</a>
+<section class="panel">
+    <header class="panel-heading font-bold">Account Overview</header>
+    <div ng-if="account">
+        <div class="panel-body">
+            <p><b>Account ID:</b> {{account.id}}</p>
+        </div>
+        <footer class="panel-footer">
+            <div class="row text-center">
+                <div class="col-xs-3 b-r">
+                    <p class="h3 font-bold m-t">{{account.balance}}</p>
+                    <p class="text-muted">Credits</p>
+                </div>
+                <div class="col-xs-3 b-r">
+                    <p class="h3 font-bold m-t">0</p>
+                    <p class="text-muted">Transactions</p>
+                </div>
+                <div class="col-xs-3 b-r">
+                    <p class="h3 font-bold m-t">4</p>
+                    <p class="text-muted">Wins</p>
+                </div>
+                <div class="col-xs-3">
+                    <p class="h3 font-bold m-t">5</p>
+                    <p class="text-muted">Losses</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div ng-if="!account">
+        <h5>No account found...</h5>
+        <a href>Click here to create one.</a>
+    </div>
 </section>
