@@ -12,11 +12,11 @@
                     templateUrl: 'components/User/templates/user-create.html',
                     controller: 'NewUserCtrl'
                 })
-                .when('/users/:userId', {
+                .when('/users/:id', {
                     templateUrl: 'components/User/templates/user.html',
                     controller: 'ViewUserCtrl'
                 })
-                .when('/users/:userId/edit', {
+                .when('/users/:id/edit', {
                     templateUrl: 'components/User/templates/user-edit.html',
                     controller: 'EditUserCtrl'
                 });

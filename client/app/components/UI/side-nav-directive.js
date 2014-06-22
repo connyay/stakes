@@ -30,6 +30,22 @@
                         title: 'New',
                         route: '/new'
                     }]
+                }, {
+                    title: 'Accounts',
+                    icon: 'money',
+                    route: 'accounts',
+                    subitems: [{
+                        title: 'All',
+                        route: ''
+                    }]
+                }, {
+                    title: 'Transactions',
+                    icon: 'exchange',
+                    route: 'transactions',
+                    subitems: [{
+                        title: 'All',
+                        route: ''
+                    }]
                 }];
                 // Used to set the active class on the nav li elements
                 $scope.isActive = function(route) {

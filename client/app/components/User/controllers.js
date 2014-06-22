@@ -32,7 +32,7 @@
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
             function($scope, $routeParams, User) {
                 User.get({
-                    userId: $routeParams.userId,
+                    id: $routeParams.id,
                     include: 'account,account.transactions'
                 }, function(user) {
                     $scope.user = user;
@@ -52,7 +52,7 @@
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
             function($scope, $routeParams, User, $location) {
                 $scope.user = User.get({
-                    userId: $routeParams.userId
+                    id: $routeParams.id
                 });
 
                 $scope.save = function() {

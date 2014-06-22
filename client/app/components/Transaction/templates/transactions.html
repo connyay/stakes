@@ -1,0 +1,39 @@
+<header class="header b-b bg-white-only">
+    <p>Transactions</p>
+</header>
+<section class="scrollable wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <button type="button" class="btn btn-white btn-sm pull-right" ng-click="refresh()">
+                        <span class="fa fa-refresh"></span>
+                    </button>
+                    <span class="label bg-info pull-right">{{transactions.length}} total</span>
+                    <h3>Transactions</h3>
+                </header>
+                <table class="table table-hover m-b-none text-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody class="animated fadeIn" ng-if="transactions">
+                        <tr ng-repeat="transaction in transactions">
+                            <td><a ng-href="#/transactions/{{transaction.id}}">{{transaction.id}}</a>
+                            </td>
+                            <td>{{transaction.amount}}</td>
+                            <td>
+                                <span class="label label-success" ng-if="transaction.type === 'credit'">Credit</span>
+                                <span class="label label-danger" ng-if="transaction.type === 'debit'">Debit</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <loading ng-if="!transactions"></loading>
+            </section>
+        </div>
+    </div>
+</section>

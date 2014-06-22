@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('stakes-admin', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user', 'stakes-account',
-        'templates', 'loadingDirective', 'sideNavDirective'
+        'stakes-transaction', 'templates', 'loadingDirective', 'sideNavDirective'
     ])
         .config(function($routeProvider) {
             $routeProvider
@@ -30,6 +30,24 @@
 (function() {
     'use strict';
 
+    angular.module('stakes-account.controllers', ['stakes-account.data'])
+        .controller('ListAccountsCtrl', function($scope, Account) {
+            Account.query({}, function(accounts) {
+                $scope.accounts = accounts;
+            });
+        })
+        .controller('ViewAccountCtrl', function($scope, $routeParams, Account) {
+            Account.get({
+                id: $routeParams.id
+            }, function(account) {
+                $scope.account = account;
+            });
+        });
+
+})();
+(function() {
+    'use strict';
+
     angular.module('stakes-account.directives', [])
         .directive('accountOverview', function() {
             return {
@@ -46,7 +64,124 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account', ['stakes-account.directives']);
+    angular.module('stakes-account', ['ngRoute', 'stakes-account.controllers', 'stakes-account.directives'])
+        .config(function($routeProvider) {
+            $routeProvider
+                .when('/accounts', {
+                    templateUrl: 'components/Account/templates/accounts.html',
+                    controller: 'ListAccountsCtrl'
+                })
+                .when('/accounts/:id', {
+                    templateUrl: 'components/Account/templates/account.html',
+                    controller: 'ViewAccountCtrl'
+                });
+        });
+})();
+(function() {
+    'use strict';
+    var getData = function(obj) {
+        if (typeof obj === 'string') {
+            obj = angular.fromJson(obj);
+        }
+        return obj.data;
+    };
+    var data = angular.module('stakes-account.data', ['ngResource']);
+
+    data.factory('Account', ['$resource',
+        function($resource) {
+            return $resource('/accounts', {
+                id: '@id'
+            }, {
+                'query': {
+                    method: 'GET',
+                    isArray: true,
+                    transformResponse: getData
+                },
+                'get': {
+                    url: '/accounts/:id',
+                    method: 'GET',
+                    transformResponse: function(data) {
+                        var account = getData(data);
+                        return account;
+                    }
+                },
+            });
+        }
+    ]);
+
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-dashboard.controllers', [])
+        .controller('DashboardCtrl', function($scope) {});
+
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-transaction.controllers', ['stakes-transaction.data'])
+        .controller('ListTransactionsCtrl', function($scope, Transaction) {
+            Transaction.query({}, function(transactions) {
+                $scope.transactions = transactions;
+            });
+        })
+        .controller('ViewTransactionCtrl', function($scope, $routeParams, Transaction) {
+            Transaction.get({
+                id: $routeParams.id
+            }, function(transaction) {
+                $scope.transaction = transaction;
+            });
+        });
+
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-transaction', ['ngRoute', 'stakes-transaction.controllers'])
+        .config(function($routeProvider) {
+            $routeProvider
+                .when('/transactions', {
+                    templateUrl: 'components/Transaction/templates/transactions.html',
+                    controller: 'ListTransactionsCtrl'
+                })
+                .when('/transactions/:id', {
+                    templateUrl: 'components/Transaction/templates/transaction.html',
+                    controller: 'ViewTransactionCtrl'
+                });
+        });
+})();
+(function() {
+    'use strict';
+    var getData = function(obj) {
+        if (typeof obj === 'string') {
+            obj = angular.fromJson(obj);
+        }
+        return obj.data;
+    };
+    var data = angular.module('stakes-transaction.data', ['ngResource']);
+
+    data.factory('Transaction', ['$resource',
+        function($resource) {
+            return $resource('/transactions', {
+                id: '@id'
+            }, {
+                'query': {
+                    method: 'GET',
+                    isArray: true,
+                    transformResponse: getData
+                },
+                'get': {
+                    url: '/transactions/:id',
+                    method: 'GET',
+                    transformResponse: function(data) {
+                        var transaction = getData(data);
+                        return transaction;
+                    }
+                },
+            });
+        }
+    ]);
 
 })();
 (function() {
@@ -106,6 +241,22 @@
                         title: 'New',
                         route: '/new'
                     }]
+                }, {
+                    title: 'Accounts',
+                    icon: 'money',
+                    route: 'accounts',
+                    subitems: [{
+                        title: 'All',
+                        route: ''
+                    }]
+                }, {
+                    title: 'Transactions',
+                    icon: 'exchange',
+                    route: 'transactions',
+                    subitems: [{
+                        title: 'All',
+                        route: ''
+                    }]
                 }];
                 // Used to set the active class on the nav li elements
                 $scope.isActive = function(route) {
@@ -149,7 +300,7 @@
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
             function($scope, $routeParams, User) {
                 User.get({
-                    userId: $routeParams.userId,
+                    id: $routeParams.id,
                     include: 'account,account.transactions'
                 }, function(user) {
                     $scope.user = user;
@@ -169,7 +320,7 @@
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
             function($scope, $routeParams, User, $location) {
                 $scope.user = User.get({
-                    userId: $routeParams.userId
+                    id: $routeParams.id
                 });
 
                 $scope.save = function() {
@@ -246,11 +397,11 @@
                     templateUrl: 'components/User/templates/user-create.html',
                     controller: 'NewUserCtrl'
                 })
-                .when('/users/:userId', {
+                .when('/users/:id', {
                     templateUrl: 'components/User/templates/user.html',
                     controller: 'ViewUserCtrl'
                 })
-                .when('/users/:userId/edit', {
+                .when('/users/:id/edit', {
                     templateUrl: 'components/User/templates/user-edit.html',
                     controller: 'EditUserCtrl'
                 });
@@ -270,7 +421,7 @@
     data.factory('User', ['$resource',
         function($resource) {
             return $resource('/users', {
-                userId: '@id'
+                id: '@id'
             }, {
                 'query': {
                     method: 'GET',
@@ -278,7 +429,7 @@
                     transformResponse: getData
                 },
                 'get': {
-                    url: '/users/:userId',
+                    url: '/users/:id',
                     method: 'GET',
                     transformResponse: function(data) {
                         var user = getData(data);
@@ -297,23 +448,16 @@
                     transformResponse: getData
                 },
                 'update': {
-                    url: '/users/:userId',
+                    url: '/users/:id',
                     method: 'PUT',
                     transformResponse: getData
                 },
                 'delete': {
-                    url: '/users/:userId',
+                    url: '/users/:id',
                     method: 'DELETE'
-                },
+                }
             });
         }
     ]);
-
-})();
-(function() {
-    'use strict';
-
-    angular.module('stakes-dashboard.controllers', [])
-        .controller('DashboardCtrl', function($scope) {});
 
 })();

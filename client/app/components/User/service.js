@@ -11,7 +11,7 @@
     data.factory('User', ['$resource',
         function($resource) {
             return $resource('/users', {
-                userId: '@id'
+                id: '@id'
             }, {
                 'query': {
                     method: 'GET',
@@ -19,7 +19,7 @@
                     transformResponse: getData
                 },
                 'get': {
-                    url: '/users/:userId',
+                    url: '/users/:id',
                     method: 'GET',
                     transformResponse: function(data) {
                         var user = getData(data);
@@ -38,14 +38,14 @@
                     transformResponse: getData
                 },
                 'update': {
-                    url: '/users/:userId',
+                    url: '/users/:id',
                     method: 'PUT',
                     transformResponse: getData
                 },
                 'delete': {
-                    url: '/users/:userId',
+                    url: '/users/:id',
                     method: 'DELETE'
-                },
+                }
             });
         }
     ]);
