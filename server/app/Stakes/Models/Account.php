@@ -11,7 +11,7 @@ class Account extends BaseModel {
     'user_id'   => 'required'
     ];
 
-    protected $fillable = ['user_id', 'balance'];
+    protected $fillable = ['user_id', 'balance', 'wins', 'losses'];
 
 
     public static function boot() {

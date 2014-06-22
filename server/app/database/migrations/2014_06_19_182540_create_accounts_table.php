@@ -16,6 +16,8 @@ class CreateAccountsTable extends Migration {
 				$table->string( 'account_id' );
 				$table->integer( 'user_id' );
 				$table->integer( 'balance' );
+				$table->integer( 'wins' );
+				$table->integer( 'losses' );
 				$table->timestamps();
 			} );
 	}
