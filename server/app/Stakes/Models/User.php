@@ -8,7 +8,8 @@ class User extends BaseModel implements UserInterface
     use ValidatingTrait;
 
     protected $rules = [
-    'username'   => 'unique:users,username'
+    'username'   => 'unique:users,username',
+    'password'   => 'sometimes|required|confirmed'
     ];
 
     /**
@@ -18,7 +19,7 @@ class User extends BaseModel implements UserInterface
      */
     protected $table = 'users';
 
-    protected $fillable = [ 'username', 'super_user' ];
+    protected $fillable = [ 'username', 'password', 'password_confirmation', 'super_user' ];
 
     /**
      * The attributes excluded from the model's JSON form.

@@ -42,6 +42,13 @@
 (function() {
     'use strict';
 
+    angular.module('stakes-dashboard.controllers', [])
+        .controller('DashboardCtrl', function($scope) {});
+
+})();
+(function() {
+    'use strict';
+
     angular.module('loadingDirective', [])
         .directive('loading', function() {
             return {
@@ -104,13 +111,6 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-dashboard.controllers', [])
-        .controller('DashboardCtrl', function($scope) {});
-
-})();
-(function() {
-    'use strict';
-
     angular.module('stakes-user.controllers', ['stakes-user.data'])
         .controller('ListUsersCtrl', function($scope, User) {
             $scope.inFlight = true;
@@ -119,6 +119,7 @@
             });
             $scope.addUser = function(evt) {
                 if ($scope.newUser.username && $scope.newUser.password) {
+                    $scope.newUser.password_confirmation = $scope.newUser.password;
                     User.create($scope.newUser, function(user) {
                         $scope.users.push(user);
                         $scope.newUser = {};
@@ -141,9 +142,14 @@
                 });
             }
         ])
-        .controller('NewUserCtrl', ['$scope', 'User',
-            function($scope, User) {
-
+        .controller('NewUserCtrl', ['$scope', 'User', '$location',
+            function($scope, User, $location) {
+                $scope.user = {};
+                $scope.createUser = function() {
+                    User.create($scope.user, function(user) {
+                        $location.path('/users/' + user.id);
+                    });
+                };
             }
         ])
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
@@ -169,7 +175,24 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-user', ['ngRoute', 'stakes-user.controllers'])
+    angular.module('stakes-user.directives', [])
+        .directive('userForm', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/User/templates/user-form.html',
+                scope: {
+                    submitText: '@',
+                    user: '=',
+                    submit: '&'
+                }
+            };
+        });
+
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-user', ['ngRoute', 'stakes-user.controllers', 'stakes-user.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/users', {

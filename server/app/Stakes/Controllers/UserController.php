@@ -31,7 +31,10 @@ class UserController extends ApiController
 
         // attempt validation
         if ( $user->isValid() ) {
-            $data['password'] = Hash::make( $data['password'] );
+            if ( isset( $data['password'] ) ) {
+                $user->password = Hash::make( $data['password'] );
+                unset($user->password_confirmation);
+            }
             if ( isset( $data['isAdmin'] ) ) {
                 $user->super_user = $data['isAdmin'];
             }

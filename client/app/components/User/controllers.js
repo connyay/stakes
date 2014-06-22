@@ -9,6 +9,7 @@
             });
             $scope.addUser = function(evt) {
                 if ($scope.newUser.username && $scope.newUser.password) {
+                    $scope.newUser.password_confirmation = $scope.newUser.password;
                     User.create($scope.newUser, function(user) {
                         $scope.users.push(user);
                         $scope.newUser = {};
@@ -31,9 +32,14 @@
                 });
             }
         ])
-        .controller('NewUserCtrl', ['$scope', 'User',
-            function($scope, User) {
-
+        .controller('NewUserCtrl', ['$scope', 'User', '$location',
+            function($scope, User, $location) {
+                $scope.user = {};
+                $scope.createUser = function() {
+                    User.create($scope.user, function(user) {
+                        $location.path('/users/' + user.id);
+                    });
+                };
             }
         ])
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
