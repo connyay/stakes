@@ -11,14 +11,10 @@
   {{ HTML::style('assets/css/app.css') }}
   {{ HTML::style('assets/css/animate.css') }}
 </head>
-<body ng-app="stakes">
+<body ng-app="stakes-admin">
 
 <section class="hbox stretch">
-  <aside class="bg-dark aside-sm" id="nav">
-    <section class="vbox">
-    <brand-header></brand-header>
-  </section>
-</aside>
+    <side-nav></side-nav>
     <section id="content">
       <section class="vbox" ng-view>
       </section>

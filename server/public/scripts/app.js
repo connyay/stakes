@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user', 'stakes-account',
+    angular.module('stakes-admin', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user', 'stakes-account',
         'templates', 'loadingDirective', 'sideNavDirective'
     ])
         .config(function($routeProvider) {
@@ -15,6 +15,17 @@
                 });
         });
 
+    angular.module('stakes', ['ngRoute', 'stakes-dashboard.controllers', 'templates', 'brandHeaderDirective'])
+        .config(function($routeProvider) {
+            $routeProvider
+                .when('/dashboard', {
+                    templateUrl: 'components/Dashboard/templates/dashboard.html',
+                    controller: 'DashboardCtrl'
+                })
+                .otherwise({
+                    redirectTo: '/dashboard'
+                });
+        });
 })();
 (function() {
     'use strict';
@@ -41,8 +52,14 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-dashboard.controllers', [])
-        .controller('DashboardCtrl', function($scope) {});
+    angular.module('brandHeaderDirective', [])
+        .directive('brandHeader', function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'components/UI/brand-header.html'
+            };
+        });
 
 })();
 (function() {
@@ -60,51 +77,42 @@
 (function() {
     'use strict';
 
-    angular.module('sideNavDirective', [])
-    /*
-     * <side-nav> Directive.
-     * Builds the left navigation from a list of navItems
-     */
-    .directive('sideNav', function() {
-        return {
-            restrict: 'E',
-            replace: true,
-            templateUrl: 'components/UI/side-nav.html',
-            controller: 'NavCtrl'
-        };
-    })
-    /*
-     * Navigation Controller
-     * Uses the navItem array to build a list of navigation.
-     * Provides an isActive filter to determine if the provided route is active
-     */
-    .controller('NavCtrl', ['$scope', '$location',
-        function($scope, $location) {
-            // Items to show in the side navigation.
-            // Object with a title and route property. If no route
-            // is provided the lowercase'd title will be used
-            $scope.navItems = [{
-                title: 'Dashboard',
-                route: 'dashboard',
-                icon: 'dashboard',
-            }, {
-                title: 'Users',
-                icon: 'users',
-                route: 'users',
-                subitems: [{
-                    title: 'All',
-                    route: ''
-                }, {
-                    title: 'New',
-                    route: '/new'
-                }]
-            }];
-            // Used to set the active class on the nav li elements
-            $scope.isActive = function(route) {
-                return route === $location.path();
+    angular.module('sideNavDirective', ['brandHeaderDirective'])
+        .directive('sideNav', function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'components/UI/side-nav.html',
+                controller: 'NavCtrl'
             };
-        }
-    ]);
+        })
+        .controller('NavCtrl', ['$scope', '$location',
+            function($scope, $location) {
+                // Items to show in the side navigation.
+                // Object with a title and route property. If no route
+                // is provided the lowercase'd title will be used
+                $scope.navItems = [{
+                    title: 'Dashboard',
+                    route: 'dashboard',
+                    icon: 'dashboard',
+                }, {
+                    title: 'Users',
+                    icon: 'users',
+                    route: 'users',
+                    subitems: [{
+                        title: 'All',
+                        route: ''
+                    }, {
+                        title: 'New',
+                        route: '/new'
+                    }]
+                }];
+                // Used to set the active class on the nav li elements
+                $scope.isActive = function(route) {
+                    return route === $location.path();
+                };
+            }
+        ]);
 
 })();
 (function() {
@@ -300,5 +308,12 @@
             });
         }
     ]);
+
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-dashboard.controllers', [])
+        .controller('DashboardCtrl', function($scope) {});
 
 })();
