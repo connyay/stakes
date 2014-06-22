@@ -3,6 +3,7 @@
     <div ng-if="account">
         <div class="panel-body">
             <p><b>Account ID:</b> {{account.id}}</p>
+            <p><b>Created:</b> {{account.created | date:'MM/dd/yyyy @ h:mma'}}</p>
         </div>
         <footer class="panel-footer">
             <div class="row text-center">
@@ -26,7 +27,9 @@
         </footer>
     </div>
     <div ng-if="!account">
-        <h5>No account found...</h5>
-        <a href>Click here to create one.</a>
+        <div class="panel-body">
+            <h5>No account found...</h5>
+            <a href>Click here to create one.</a>
+        </div>
     </div>
 </section>

@@ -14,6 +14,7 @@ class AccountTransformer extends Fractal\TransformerAbstract
         'balance'   => (int) $account->balance,
         'wins'   => (int) $account->wins,
         'losses'   => (int) $account->losses,
+        'created'   => $account->created_at->toISO8601String()
         ];
     }
 
