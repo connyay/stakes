@@ -38,13 +38,13 @@ class AccountsController extends ApiController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /accounts/{id}
+	 * GET /accounts/{account_id}
 	 *
-	 * @param int     $id
+	 * @param int     $account_id
 	 * @return Response
 	 */
-	public function show( $id ) {
-		$account = Account::where( 'account_id', '=', $id )->first();
+	public function show( $account_id ) {
+		$account = Account::where( 'account_id', '=', $account_id )->first();
 		if ( is_null( $account ) ) {
 			return $this->errorNotFound();
 		}
@@ -53,24 +53,24 @@ class AccountsController extends ApiController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /accounts/{id}
+	 * PUT /accounts/{account_id}
 	 *
-	 * @param int     $id
+	 * @param int     $account_id
 	 * @return Response
 	 */
-	public function update( $id ) {
+	public function update( $account_id ) {
 		//
 	}
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /accounts/{id}
+	 * DELETE /accounts/{account_id}
 	 *
-	 * @param int     $id
+	 * @param int     $account_id
 	 * @return Response
 	 */
-	public function destroy( $id ) {
-		$account = Account::where( 'account_id', '=', $id )->first();
+	public function destroy( $account_id ) {
+		$account = Account::where( 'account_id', '=', $account_id )->first();
 		if ( is_null( $account ) ) {
 			return $this->errorNotFound();
 		}

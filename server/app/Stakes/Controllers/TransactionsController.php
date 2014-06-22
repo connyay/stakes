@@ -29,13 +29,13 @@ class TransactionsController extends ApiController {
 
 	/**
 	 * Display the specified resource.
-	 * GET /transactions/{id}
+	 * GET /transactions/{transaction_id}
 	 *
-	 * @param int     $id
+	 * @param int     $transaction_id
 	 * @return Response
 	 */
-	public function show( $id ) {
-		$transaction = Transaction::where( 'transaction_id', '=', $id )->first();
+	public function show( $transaction_id ) {
+		$transaction = Transaction::where( 'transaction_id', '=', $transaction_id )->first();
 		if ( is_null( $transaction ) ) {
 			return $this->errorNotFound();
 		}
@@ -44,23 +44,23 @@ class TransactionsController extends ApiController {
 
 	/**
 	 * Update the specified resource in storage.
-	 * PUT /transactions/{id}
+	 * PUT /transactions/{transaction_id}
 	 *
-	 * @param int     $id
+	 * @param int     $transaction_id
 	 * @return Response
 	 */
-	public function update( $id ) {
+	public function update( $transaction_id ) {
 		//
 	}
 
 	/**
 	 * Remove the specified resource from storage.
-	 * DELETE /transactions/{id}
+	 * DELETE /transactions/{transaction_id}
 	 *
-	 * @param int     $id
+	 * @param int     $transaction_id
 	 * @return Response
 	 */
-	public function destroy( $id ) {
+	public function destroy( $transaction_id ) {
 		//
 	}
 
