@@ -16,5 +16,5 @@
             <input type="checkbox" ng-model="user.isAdmin" />Admin
         </label>
     </div>
-    <button type="submit" class="btn btn-sm btn-default">{{submitText}}</button>
+    <button type="submit" class="btn btn-primary" ng-disabled="isDisabled()">{{submitText}}</button>
 </form>

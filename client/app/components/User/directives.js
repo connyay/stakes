@@ -10,6 +10,17 @@
                     submitText: '@',
                     user: '=',
                     submit: '&'
+                },
+                controller: function($scope) {
+                    $scope.isDisabled = function() {
+                        if (!$scope.user || !$scope.user.username || !$scope.user.password || !$scope.user.password_confirmation) {
+                            return true;
+                        }
+                        if ($scope.user.password !== $scope.user.password_confirmation) {
+                            return true;
+                        }
+                        return false;
+                    }
                 }
             };
         })
@@ -26,7 +37,7 @@
                         if (!$scope.user || !$scope.user.username || !$scope.user.password) {
                             return true;
                         }
-                        return !$scope.user.username.length || !$scope.user.password.length;
+                        return false;
                     }
                 }
             };

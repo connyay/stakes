@@ -19,29 +19,6 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account.directives', [])
-        .directive('accountOverview', function() {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: 'components/Account/templates/account-overview.html',
-                scope: {
-                    account: '='
-                },
-                controller: function($scope) {}
-            };
-
-        });
-})();
-(function() {
-    'use strict';
-
-    angular.module('stakes-account', ['stakes-account.directives']);
-
-})();
-(function() {
-    'use strict';
-
     angular.module('stakes-dashboard.controllers', [])
         .controller('DashboardCtrl', function($scope) {});
 
@@ -191,6 +168,17 @@
                     submitText: '@',
                     user: '=',
                     submit: '&'
+                },
+                controller: function($scope) {
+                    $scope.isDisabled = function() {
+                        if (!$scope.user || !$scope.user.username || !$scope.user.password || !$scope.user.password_confirmation) {
+                            return true;
+                        }
+                        if ($scope.user.password !== $scope.user.password_confirmation) {
+                            return true;
+                        }
+                        return false;
+                    }
                 }
             };
         })
@@ -207,7 +195,7 @@
                         if (!$scope.user || !$scope.user.username || !$scope.user.password) {
                             return true;
                         }
-                        return !$scope.user.username.length || !$scope.user.password.length;
+                        return false;
                     }
                 }
             };
@@ -290,5 +278,28 @@
             });
         }
     ]);
+
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-account.directives', [])
+        .directive('accountOverview', function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'components/Account/templates/account-overview.html',
+                scope: {
+                    account: '='
+                },
+                controller: function($scope) {}
+            };
+
+        });
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-account', ['stakes-account.directives']);
 
 })();
