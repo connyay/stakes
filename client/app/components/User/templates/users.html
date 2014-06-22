@@ -22,7 +22,7 @@
                             <th title="Actions"></th>
                         </tr>
                     </thead>
-                    <tbody class="animated fadeIn" ng-if="!inFlight">
+                    <tbody class="animated fadeIn" ng-if="users">
                         <tr ng-repeat="user in users">
                             <td><a ng-href="#/users/{{user.id}}">{{user.id}}</a>
                             </td>
@@ -47,7 +47,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <loading ng-if="inFlight"></loading>
+                <loading ng-if="!users"></loading>
             </section>
         </div>
         <div class="col-md-8">

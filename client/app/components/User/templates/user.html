@@ -5,7 +5,8 @@
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
-                <section class="panel-body">
+                <loading ng-if="!user"></loading>
+                <section class="panel-body" ng-if="user">
                     <h1>{{user.username}}
                         <small>
                             <small>

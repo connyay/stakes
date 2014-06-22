@@ -19,6 +19,29 @@
 (function() {
     'use strict';
 
+    angular.module('stakes-account.directives', [])
+        .directive('accountOverview', function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: 'components/Account/templates/account-overview.html',
+                scope: {
+                    account: '='
+                },
+                controller: function($scope) {}
+            };
+
+        });
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-account', ['stakes-account.directives']);
+
+})();
+(function() {
+    'use strict';
+
     angular.module('stakes-dashboard.controllers', [])
         .controller('DashboardCtrl', function($scope) {});
 
@@ -92,10 +115,9 @@
     };
     angular.module('stakes-user.controllers', ['stakes-user.data'])
         .controller('ListUsersCtrl', function($scope, User, $timeout) {
-            $scope.inFlight = true;
             $scope.newUser = new User();
-            $scope.users = User.query({}, function() {
-                $scope.inFlight = false;
+            User.query({}, function(users) {
+                $scope.users = users;
             });
             $scope.addUser = function() {
                 $scope.newUser.password_confirmation = $scope.newUser.password;
@@ -119,10 +141,11 @@
         })
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
             function($scope, $routeParams, User) {
-
-                $scope.user = User.get({
+                User.get({
                     userId: $routeParams.userId,
                     include: 'account,account.transactions'
+                }, function(user) {
+                    $scope.user = user;
                 });
             }
         ])
@@ -178,7 +201,7 @@
                             return true;
                         }
                         return false;
-                    }
+                    };
                 }
             };
         })
@@ -196,7 +219,7 @@
                             return true;
                         }
                         return false;
-                    }
+                    };
                 }
             };
         });
@@ -278,28 +301,5 @@
             });
         }
     ]);
-
-})();
-(function() {
-    'use strict';
-
-    angular.module('stakes-account.directives', [])
-        .directive('accountOverview', function() {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: 'components/Account/templates/account-overview.html',
-                scope: {
-                    account: '='
-                },
-                controller: function($scope) {}
-            };
-
-        });
-})();
-(function() {
-    'use strict';
-
-    angular.module('stakes-account', ['stakes-account.directives']);
 
 })();

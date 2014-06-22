@@ -5,10 +5,9 @@
     };
     angular.module('stakes-user.controllers', ['stakes-user.data'])
         .controller('ListUsersCtrl', function($scope, User, $timeout) {
-            $scope.inFlight = true;
             $scope.newUser = new User();
-            $scope.users = User.query({}, function() {
-                $scope.inFlight = false;
+            User.query({}, function(users) {
+                $scope.users = users;
             });
             $scope.addUser = function() {
                 $scope.newUser.password_confirmation = $scope.newUser.password;
@@ -32,10 +31,11 @@
         })
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
             function($scope, $routeParams, User) {
-
-                $scope.user = User.get({
+                User.get({
                     userId: $routeParams.userId,
                     include: 'account,account.transactions'
+                }, function(user) {
+                    $scope.user = user;
                 });
             }
         ])
