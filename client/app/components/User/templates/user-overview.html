@@ -1,0 +1,15 @@
+<section class="panel">
+    <header class="panel-heading font-bold">User Overview</header>
+    <div>
+        <div class="panel-body">
+            <p><b>Username:</b> {{user.username}}</p>
+            <p><b>Is Admin:</b>
+                <span class="label label-success" ng-if="user.isAdmin">Yes</span>
+                <span class="label label-danger" ng-if="!user.isAdmin">No</span>
+            </p>
+
+            <p><b>User ID:</b> {{user.id}}</p>
+            <p><b>Created:</b> {{user.created | date:'MM/dd/yyyy @ h:mma'}}</p>
+        </div>
+    </div>
+</section>

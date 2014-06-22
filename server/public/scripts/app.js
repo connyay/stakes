@@ -380,6 +380,17 @@
                     };
                 }
             };
+        })
+        .directive('userOverview', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/User/templates/user-overview.html',
+                scope: {
+                    user: '='
+                },
+                controller: function($scope) {}
+            };
+
         });
 
 })();
