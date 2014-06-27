@@ -2,9 +2,12 @@
 
 use League\Fractal;
 use Stakes\Models\Transaction;
+use Stakes\Transformers\AccountTransformer;
 
 class TransactionTransformer extends Fractal\TransformerAbstract
 {
+    protected $availableIncludes = ['account'];
+
     public function transform( Transaction $transaction ) {
         $type = $transaction->type === '+' ? 'credit' : 'debit';
         return [
@@ -12,5 +15,13 @@ class TransactionTransformer extends Fractal\TransformerAbstract
         'amount'   => (int) $transaction->amount,
         'type' => $type
         ];
+    }
+
+    public function includeAccount( Transaction $transaction ) {
+        $account = $transaction->account;
+        if ( is_null( $account ) ) {
+            return;
+        }
+        return $this->item( $account, new AccountTransformer );
     }
 }
