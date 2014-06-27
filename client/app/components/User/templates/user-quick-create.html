@@ -3,19 +3,19 @@
         Quick Create User
     </header>
     <div class="panel-body">
-        <form class="form-inline" role="form" ng-submit="submit()">
+        <form class="form-inline" name="form" role="form" ng-submit="submit()" novalidate>
             <div class="form-group">
-                <input type="text" name="username" class="form-control" ng-model="user.username" placeholder="Username">
+                <input type="text" name="username" class="form-control" ng-model="user.username" placeholder="Username" required>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" ng-model="user.password" placeholder="Password">
+                <input type="password" class="form-control" ng-model="user.password" placeholder="Password" required>
             </div>
             <div class="checkbox m-l-xs m-r-xs">
                 <label>
                     <input type="checkbox" ng-model="user.isAdmin">&nbsp;Admin
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary" ng-disabled="isDisabled()">Create</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Create</button>
         </form>
     </div>
 </section>

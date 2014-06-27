@@ -10,17 +10,6 @@
                     submitText: '@',
                     user: '=',
                     submit: '&'
-                },
-                controller: function($scope) {
-                    $scope.isDisabled = function() {
-                        if (!$scope.user || !$scope.user.username || !$scope.user.password || !$scope.user.password_confirmation) {
-                            return true;
-                        }
-                        if ($scope.user.password !== $scope.user.password_confirmation) {
-                            return true;
-                        }
-                        return false;
-                    };
                 }
             };
         })
@@ -31,14 +20,6 @@
                 scope: {
                     user: '=',
                     submit: '&'
-                },
-                controller: function($scope) {
-                    $scope.isDisabled = function() {
-                        if (!$scope.user || !$scope.user.username || !$scope.user.password) {
-                            return true;
-                        }
-                        return false;
-                    };
                 }
             };
         })
@@ -48,8 +29,7 @@
                 templateUrl: 'components/User/templates/user-overview.html',
                 scope: {
                     user: '='
-                },
-                controller: function($scope) {}
+                }
             };
 
         });
