@@ -9,7 +9,8 @@
         })
         .controller('ViewTransactionCtrl', function($scope, $routeParams, Transaction) {
             Transaction.get({
-                id: $routeParams.id
+                id: $routeParams.id,
+                include: 'account'
             }, function(transaction) {
                 $scope.transaction = transaction;
             });

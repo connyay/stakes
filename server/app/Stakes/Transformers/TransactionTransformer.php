@@ -13,7 +13,8 @@ class TransactionTransformer extends Fractal\TransformerAbstract
         return [
         'id'      => $transaction->transaction_id,
         'amount'   => (int) $transaction->amount,
-        'type' => $type
+        'type' => $type,
+        'created'   => $transaction->created_at->toISO8601String()
         ];
     }
 

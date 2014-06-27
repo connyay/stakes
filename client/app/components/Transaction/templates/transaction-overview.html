@@ -1,0 +1,9 @@
+<section class="panel">
+    <header class="panel-heading font-bold">Transaction Overview</header>
+    <div ng-if="transaction">
+        <div class="panel-body">
+            <p><b>Transaction ID:</b> {{transaction.id}}</p>
+            <p><b>Created:</b> {{transaction.created | date:'MM/dd/yyyy @ h:mma'}}</p>
+        </div>
+    </div>
+</section>

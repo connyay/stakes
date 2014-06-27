@@ -7,6 +7,8 @@
             <section class="panel" ng-if="!transaction">
                 <loading></loading>
             </section>
+            <transaction-overview transaction="transaction" ng-if="transaction"></transaction-overview>
+            <account-overview account="transaction.account" ng-if="transaction.account"></account-overview>
         </div>
     </div>
 </section>

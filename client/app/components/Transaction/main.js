@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-transaction', ['ngRoute', 'stakes-transaction.controllers'])
+    angular.module('stakes-transaction', ['ngRoute', 'stakes-transaction.controllers', 'stakes-transaction.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/transactions', {

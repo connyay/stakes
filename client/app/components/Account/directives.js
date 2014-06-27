@@ -8,8 +8,7 @@
                 templateUrl: 'components/Account/templates/account-overview.html',
                 scope: {
                     account: '='
-                },
-                controller: function($scope) {}
+                }
             };
 
         });

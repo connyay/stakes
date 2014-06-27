@@ -23,6 +23,9 @@
                     method: 'GET',
                     transformResponse: function(data) {
                         var transaction = getData(data);
+                        if (transaction.account) {
+                            transaction.account = getData(transaction.account);
+                        }
                         return transaction;
                     }
                 },

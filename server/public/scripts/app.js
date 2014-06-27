@@ -56,8 +56,7 @@
                 templateUrl: 'components/Account/templates/account-overview.html',
                 scope: {
                     account: '='
-                },
-                controller: function($scope) {}
+                }
             };
 
         });
@@ -132,7 +131,8 @@
         })
         .controller('ViewTransactionCtrl', function($scope, $routeParams, Transaction) {
             Transaction.get({
-                id: $routeParams.id
+                id: $routeParams.id,
+                include: 'account'
             }, function(transaction) {
                 $scope.transaction = transaction;
             });
@@ -142,7 +142,22 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-transaction', ['ngRoute', 'stakes-transaction.controllers'])
+    angular.module('stakes-transaction.directives', [])
+        .directive('transactionOverview', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/Transaction/templates/transaction-overview.html',
+                scope: {
+                    transaction: '='
+                }
+            };
+
+        });
+})();
+(function() {
+    'use strict';
+
+    angular.module('stakes-transaction', ['ngRoute', 'stakes-transaction.controllers', 'stakes-transaction.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/transactions', {
@@ -180,6 +195,9 @@
                     method: 'GET',
                     transformResponse: function(data) {
                         var transaction = getData(data);
+                        if (transaction.account) {
+                            transaction.account = getData(transaction.account);
+                        }
                         return transaction;
                     }
                 },
