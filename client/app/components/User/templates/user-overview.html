@@ -2,7 +2,8 @@
     <header class="panel-heading font-bold">User Overview</header>
     <div>
         <div class="panel-body">
-            <p><b>Username:</b> {{user.username}}</p>
+            <p><b>Username:</b> <a ng-href="#/users/{{user.id}}" ng-if="link">{{user.id}}</a>
+                <span ng-if="!link">{{user.id}}</span></p>
             <p><b>Is Admin:</b>
                 <span class="label label-success" ng-if="user.isAdmin">Yes</span>
                 <span class="label label-danger" ng-if="!user.isAdmin">No</span>

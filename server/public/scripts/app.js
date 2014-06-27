@@ -55,7 +55,8 @@
                 restrict: 'E',
                 templateUrl: 'components/Account/templates/account-overview.html',
                 scope: {
-                    account: '='
+                    account: '=',
+                    link: '='
                 }
             };
 
@@ -148,7 +149,8 @@
                 restrict: 'E',
                 templateUrl: 'components/Transaction/templates/transaction-overview.html',
                 scope: {
-                    transaction: '='
+                    transaction: '=',
+                    link: '='
                 }
             };
 
@@ -389,7 +391,8 @@
                 restrict: 'E',
                 templateUrl: 'components/User/templates/user-overview.html',
                 scope: {
-                    user: '='
+                    user: '=',
+                    link: '='
                 }
             };
 

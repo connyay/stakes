@@ -28,7 +28,8 @@
                 restrict: 'E',
                 templateUrl: 'components/User/templates/user-overview.html',
                 scope: {
-                    user: '='
+                    user: '=',
+                    link: '='
                 }
             };
 

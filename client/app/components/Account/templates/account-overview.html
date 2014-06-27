@@ -2,7 +2,9 @@
     <header class="panel-heading font-bold">Account Overview</header>
     <div ng-if="account">
         <div class="panel-body">
-            <p><b>Account ID:</b> {{account.id}}</p>
+            <p><b>Account ID:</b>  <a ng-href="#/accounts/{{account.id}}" ng-if="link">{{account.id}}</a>
+                <span ng-if="!link">{{account.id}}</span>
+            </p>
             <p><b>Created:</b> {{account.created | date:'MM/dd/yyyy @ h:mma'}}</p>
         </div>
         <footer class="panel-footer">

@@ -2,7 +2,9 @@
     <header class="panel-heading font-bold">Transaction Overview</header>
     <div ng-if="transaction">
         <div class="panel-body">
-            <p><b>Transaction ID:</b> {{transaction.id}}</p>
+            <p><b>Transaction ID:</b>  <a ng-href="#/transactions/{{transaction.id}}" ng-if="link">{{transaction.id}}</a>
+                <span ng-if="!link">{{transaction.id}}</span>
+            </p>
             <p><b>Created:</b> {{transaction.created | date:'MM/dd/yyyy @ h:mma'}}</p>
         </div>
     </div>

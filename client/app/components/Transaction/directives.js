@@ -7,7 +7,8 @@
                 restrict: 'E',
                 templateUrl: 'components/Transaction/templates/transaction-overview.html',
                 scope: {
-                    transaction: '='
+                    transaction: '=',
+                    link: '='
                 }
             };
 

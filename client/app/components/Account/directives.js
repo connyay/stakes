@@ -7,7 +7,8 @@
                 restrict: 'E',
                 templateUrl: 'components/Account/templates/account-overview.html',
                 scope: {
-                    account: '='
+                    account: '=',
+                    link: '='
                 }
             };
 
