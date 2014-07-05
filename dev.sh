@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ./client
-npm install
+sudo npm install
 bower install
 
 cd ../server

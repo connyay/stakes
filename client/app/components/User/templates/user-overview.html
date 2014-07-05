@@ -2,14 +2,14 @@
     <header class="panel-heading font-bold">User Overview</header>
     <div>
         <div class="panel-body">
-            <p><b>Username:</b> <a ng-href="#/users/{{user.id}}" ng-if="link">{{user.id}}</a>
-                <span ng-if="!link">{{user.id}}</span></p>
-            <p><b>Is Admin:</b>
-                <span class="label label-success" ng-if="user.isAdmin">Yes</span>
-                <span class="label label-danger" ng-if="!user.isAdmin">No</span>
+            <p><b>Username:</b>  <a ng-href="#/users/{{user.id}}" ng-if="link">{{user.username}}</a>
+                <span ng-if="!link">{{user.username}}</span>
+            </p>
+            <p><b>Admin:</b>
+                <span class="label" ng-class="{'label-success': user.isAdmin, 'label-danger': !user.isAdmin}">{{ user.isAdmin ? 'Yes' : 'No' }}</span>
             </p>
 
-            <p><b>User ID:</b> {{user.id}}</p>
+            <p><b>ID:</b> {{user.id}}</p>
             <p><b>Created:</b> {{user.created | date:'MM/dd/yyyy @ h:mma'}}</p>
         </div>
     </div>
