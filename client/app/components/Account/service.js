@@ -29,6 +29,17 @@
                         return account;
                     }
                 },
+                'create': {
+                    url: '/accounts',
+                    method: 'POST',
+                    transformResponse: function(data) {
+                        return getData(data);
+                    }
+                },
+                'delete': {
+                    url: '/accounts/:id',
+                    method: 'DELETE'
+                }
             });
         }
     ]);

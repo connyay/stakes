@@ -31,10 +31,12 @@
         })
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
             function($scope, $routeParams, User) {
+                $scope.loading = true;
                 User.get({
                     id: $routeParams.id,
                     include: 'account,account.transactions'
                 }, function(user) {
+                    $scope.loading = false;
                     $scope.user = user;
                 });
             }

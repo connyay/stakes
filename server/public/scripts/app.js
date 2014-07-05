@@ -49,7 +49,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account.directives', [])
+    angular.module('stakes-account.directives', ['stakes-account.data'])
         .directive('accountOverview', function() {
             return {
                 restrict: 'E',
@@ -60,6 +60,25 @@
                 }
             };
 
+        })
+        .directive('accountQuickCreate', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/Account/templates/account-quick-create.html',
+                scope: {
+                    user: '='
+                },
+                controller: function($scope, Account) {
+
+                    $scope.create = function() {
+                        Account.create({
+                            'user_id': $scope.user.id
+                        }, function(account) {
+                            $scope.user.account = account;
+                        });
+                    };
+                }
+            };
         });
 })();
 (function() {
@@ -109,6 +128,17 @@
                         return account;
                     }
                 },
+                'create': {
+                    url: '/accounts',
+                    method: 'POST',
+                    transformResponse: function(data) {
+                        return getData(data);
+                    }
+                },
+                'delete': {
+                    url: '/accounts/:id',
+                    method: 'DELETE'
+                }
             });
         }
     ]);
@@ -202,7 +232,7 @@
                         }
                         return transaction;
                     }
-                },
+                }
             });
         }
     ]);
@@ -268,19 +298,11 @@
                 }, {
                     title: 'Accounts',
                     icon: 'money',
-                    route: 'accounts',
-                    subitems: [{
-                        title: 'All',
-                        route: ''
-                    }]
+                    route: 'accounts'
                 }, {
                     title: 'Transactions',
                     icon: 'exchange',
-                    route: 'transactions',
-                    subitems: [{
-                        title: 'All',
-                        route: ''
-                    }]
+                    route: 'transactions'
                 }];
                 // Used to set the active class on the nav li elements
                 $scope.isActive = function(route) {
@@ -323,10 +345,12 @@
         })
         .controller('ViewUserCtrl', ['$scope', '$routeParams', 'User',
             function($scope, $routeParams, User) {
+                $scope.loading = true;
                 User.get({
                     id: $routeParams.id,
                     include: 'account,account.transactions'
                 }, function(user) {
+                    $scope.loading = false;
                     $scope.user = user;
                 });
             }
