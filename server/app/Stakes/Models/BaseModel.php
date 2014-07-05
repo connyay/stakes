@@ -1,6 +1,6 @@
-<?php namespace Stakes\Models;
+<?php
+namespace Stakes\Models;
 
-class BaseModel extends \Illuminate\Database\Eloquent\Model
-{
+class BaseModel extends \Illuminate\Database\Eloquent\Model {
 
 }
