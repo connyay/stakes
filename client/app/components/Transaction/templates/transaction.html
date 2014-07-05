@@ -4,9 +4,7 @@
 <section class="scrollable wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <section class="panel" ng-if="!transaction">
-                <loading></loading>
-            </section>
+            <loading ng-if="!transaction"></loading>
             <transaction-overview transaction="transaction" ng-if="transaction"></transaction-overview>
             <account-overview account="transaction.account" ng-if="transaction.account" link="true"></account-overview>
         </div>

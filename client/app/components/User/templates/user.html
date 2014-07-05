@@ -4,11 +4,10 @@
 <section class="scrollable wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <section class="panel" ng-if="!user">
-                <loading></loading>
-            </section>
+            <loading ng-if="loading"></loading>
             <user-overview user="user" ng-if="user"></user-overview>
-            <account-overview account="user.account" ng-if="user.account" link="true"></account-overview>
+            <account-overview account="user.account" ng-if="!loading && user.account" link="true"></account-overview>
+            <account-quick-create ng-if="!loading && !user.account" user="user"></account-quick-create>
         </div>
     </div>
 </section>

@@ -4,9 +4,7 @@
 <section class="scrollable wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <section class="panel" ng-if="!account">
-                <loading></loading>
-            </section>
+            <loading ng-if="!account"></loading>
             <account-overview account="account" ng-if="account"></account-overview>
             <user-overview user="account.user" ng-if="account.user" link="true"></user-overview>
         </div>
