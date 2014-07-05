@@ -33,19 +33,11 @@
                 }, {
                     title: 'Accounts',
                     icon: 'money',
-                    route: 'accounts',
-                    subitems: [{
-                        title: 'All',
-                        route: ''
-                    }]
+                    route: 'accounts'
                 }, {
                     title: 'Transactions',
                     icon: 'exchange',
-                    route: 'transactions',
-                    subitems: [{
-                        title: 'All',
-                        route: ''
-                    }]
+                    route: 'transactions'
                 }];
                 // Used to set the active class on the nav li elements
                 $scope.isActive = function(route) {
