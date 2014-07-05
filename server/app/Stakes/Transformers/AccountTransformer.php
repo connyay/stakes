@@ -14,7 +14,7 @@ class AccountTransformer extends Fractal\TransformerAbstract {
     }
 
     public function includeUser(Account $account) {
-        $user = $account->user
+        $user = $account->user;
 
         return $this->item($user, new UserTransformer);
     }

@@ -8,18 +8,15 @@ class Account extends BaseModel {
 
     use ValidatingTrait;
 
-    protected $rules = [
-        'user_id' => 'required'
-    ];
+    protected $rules = ['user_id' => 'required'];
 
     protected $fillable = ['user_id', 'balance', 'wins', 'losses'];
 
     public static function boot() {
         parent::boot();
 
-        ::creating(public static function ($account) {
-                return $account->accountId = Uuid::generate();
-
+        Account::creating(function ($account) {
+                return $account->account_id = Uuid::generate(4);
             });
     }
 
