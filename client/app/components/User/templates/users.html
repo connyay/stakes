@@ -30,8 +30,7 @@
                             </td>
                             <td>{{user.created | date:'MM/dd/yyyy @ h:mma'}}</td>
                             <td>
-                                <span class="label label-success" ng-if="user.isAdmin" title="{{user.username}} is an admin">Yes</span>
-                                <span class="label label-danger" ng-if="!user.isAdmin" title="{{user.username}} is not an admin">No</span>
+                                <span class="label" ng-class="{'label-success': user.isAdmin, 'label-danger': !user.isAdmin}">{{ user.isAdmin ? 'Yes' : 'No' }}</span>
                             </td>
                             <td class="text-right">
                                 <div class="btn-group">
