@@ -2,6 +2,7 @@
 namespace Stakes\Models;
 
 use Illuminate\Auth\UserInterface;
+use Log;
 use SoftDeletingTrait;
 use Watson\Validating\ValidatingTrait;
 
@@ -67,6 +68,10 @@ class User extends BaseModel implements UserInterface {
                 if ($user->account) {
                     $user->account->delete();
                 }
+                Log::info('User Deleted');
+            });
+        User::saving(function ($user) {
+                Log::info('User Created');
             });
     }
 
