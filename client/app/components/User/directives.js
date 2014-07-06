@@ -1,11 +1,13 @@
 (function() {
     'use strict';
-
+    var templatePath = function(template) {
+        return 'components/User/templates/' + template + '.html';
+    };
     angular.module('stakes.user.directives', [])
         .directive('userForm', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'components/User/templates/user-form.html',
+                templateUrl: templatePath('user-form'),
                 scope: {
                     submitText: '@',
                     user: '=',
@@ -16,7 +18,7 @@
         .directive('userQuickCreate', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'components/User/templates/user-quick-create.html',
+                templateUrl: templatePath('user-quick-create'),
                 scope: {
                     user: '=',
                     submit: '&'
@@ -26,7 +28,7 @@
         .directive('userOverview', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'components/User/templates/user-overview.html',
+                templateUrl: templatePath('user-overview'),
                 scope: {
                     user: '=',
                     link: '='
@@ -36,9 +38,8 @@
         .directive('userNav', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'components/User/templates/user-nav.html'
+                templateUrl: templatePath('user-nav')
             };
-
         });
 
 })();

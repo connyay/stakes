@@ -1,11 +1,13 @@
 (function() {
     'use strict';
-
+    var templatePath = function(template) {
+        return 'components/Account/templates/' + template + '.html';
+    };
     angular.module('stakes.account.directives', ['stakes.account.data'])
         .directive('accountOverview', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'components/Account/templates/account-overview.html',
+                templateUrl: templatePath('account-overview'),
                 scope: {
                     account: '=',
                     link: '='
@@ -16,7 +18,7 @@
         .directive('accountQuickCreate', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'components/Account/templates/account-quick-create.html',
+                templateUrl: templatePath('account-quick-create.html'),
                 scope: {
                     user: '='
                 },

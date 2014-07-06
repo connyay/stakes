@@ -1,11 +1,13 @@
 (function() {
     'use strict';
-
+    var templatePath = function(template) {
+        return 'components/Transaction/templates/' + template + '.html';
+    };
     angular.module('stakes.transaction.directives', [])
         .directive('transactionOverview', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'components/Transaction/templates/transaction-overview.html',
+                templateUrl: ('transaction-overview.html'),
                 scope: {
                     transaction: '=',
                     link: '='
