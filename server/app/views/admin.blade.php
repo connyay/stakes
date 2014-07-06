@@ -11,7 +11,7 @@
   {{ HTML::style('assets/css/app.css') }}
   {{ HTML::style('assets/css/animate.css') }}
 </head>
-<body ng-app="stakes-admin">
+<body ng-app="stakes.admin">
 
 <section class="hbox stretch">
     <side-nav></side-nav>

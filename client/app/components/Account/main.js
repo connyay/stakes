@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account', ['ngRoute', 'stakes-account.controllers', 'stakes-account.directives'])
+    angular.module('stakes.account', ['ngRoute', 'stakes.account.controllers', 'stakes.account.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/accounts', {

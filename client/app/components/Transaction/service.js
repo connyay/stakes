@@ -6,7 +6,7 @@
         }
         return obj.data;
     };
-    var data = angular.module('stakes-transaction.data', ['ngResource']);
+    var data = angular.module('stakes.transaction.data', ['ngResource']);
 
     data.factory('Transaction', ['$resource',
         function($resource) {

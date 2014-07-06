@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-admin', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user', 'stakes-account',
-        'stakes-transaction', 'templates', 'loadingDirective', 'sideNavDirective'
+    angular.module('stakes.admin', ['ngRoute', 'stakes.dashboard.controllers', 'stakes.user', 'stakes.account',
+        'stakes.transaction', 'templates', 'loadingDirective', 'sideNavDirective'
     ])
         .config(function($routeProvider) {
             $routeProvider

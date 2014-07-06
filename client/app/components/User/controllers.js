@@ -3,7 +3,7 @@
     var resetFocus = function() {
         angular.element('[name="username"]').trigger('focus');
     };
-    angular.module('stakes-user.controllers', ['stakes-user.data'])
+    angular.module('stakes.user.controllers', ['stakes.user.data'])
         .controller('ListUsersCtrl', function($scope, User, $timeout) {
             $scope.newUser = new User();
             User.query({}, function(users) {

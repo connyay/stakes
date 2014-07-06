@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-user', ['ngRoute', 'stakes-user.controllers', 'stakes-user.directives'])
+    angular.module('stakes.user', ['ngRoute', 'stakes.user.controllers', 'stakes.user.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/users', {

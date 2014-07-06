@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-transaction.directives', [])
+    angular.module('stakes.transaction.directives', [])
         .directive('transactionOverview', function() {
             return {
                 restrict: 'E',

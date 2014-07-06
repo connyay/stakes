@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account.directives', ['stakes-account.data'])
+    angular.module('stakes.account.directives', ['stakes.account.data'])
         .directive('accountOverview', function() {
             return {
                 restrict: 'E',

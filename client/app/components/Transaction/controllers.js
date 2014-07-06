@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-transaction.controllers', ['stakes-transaction.data'])
+    angular.module('stakes.transaction.controllers', ['stakes.transaction.data'])
         .controller('ListTransactionsCtrl', function($scope, Transaction) {
             Transaction.query({
                 include: 'account'

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-user.directives', [])
+    angular.module('stakes.user.directives', [])
         .directive('userForm', function() {
             return {
                 restrict: 'E',

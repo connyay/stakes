@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-admin', ['ngRoute', 'stakes-dashboard.controllers', 'stakes-user', 'stakes-account',
-        'stakes-transaction', 'templates', 'loadingDirective', 'sideNavDirective'
+    angular.module('stakes.admin', ['ngRoute', 'stakes.dashboard.controllers', 'stakes.user', 'stakes.account',
+        'stakes.transaction', 'templates', 'loadingDirective', 'sideNavDirective'
     ])
         .config(function($routeProvider) {
             $routeProvider
@@ -30,7 +30,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account.controllers', ['stakes-account.data'])
+    angular.module('stakes.account.controllers', ['stakes.account.data'])
         .controller('ListAccountsCtrl', function($scope, Account) {
             Account.query({}, function(accounts) {
                 $scope.accounts = accounts;
@@ -49,7 +49,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account.directives', ['stakes-account.data'])
+    angular.module('stakes.account.directives', ['stakes.account.data'])
         .directive('accountOverview', function() {
             return {
                 restrict: 'E',
@@ -84,7 +84,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-account', ['ngRoute', 'stakes-account.controllers', 'stakes-account.directives'])
+    angular.module('stakes.account', ['ngRoute', 'stakes.account.controllers', 'stakes.account.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/accounts', {
@@ -105,7 +105,7 @@
         }
         return obj.data;
     };
-    var data = angular.module('stakes-account.data', ['ngResource']);
+    var data = angular.module('stakes.account.data', ['ngResource']);
 
     data.factory('Account', ['$resource',
         function($resource) {
@@ -147,14 +147,14 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-dashboard.controllers', [])
+    angular.module('stakes.dashboard.controllers', [])
         .controller('DashboardCtrl', function($scope) {});
 
 })();
 (function() {
     'use strict';
 
-    angular.module('stakes-transaction.controllers', ['stakes-transaction.data'])
+    angular.module('stakes.transaction.controllers', ['stakes.transaction.data'])
         .controller('ListTransactionsCtrl', function($scope, Transaction) {
             Transaction.query({
                 include: 'account'
@@ -175,7 +175,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-transaction.directives', [])
+    angular.module('stakes.transaction.directives', [])
         .directive('transactionOverview', function() {
             return {
                 restrict: 'E',
@@ -191,7 +191,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-transaction', ['ngRoute', 'stakes-transaction.controllers', 'stakes-transaction.directives'])
+    angular.module('stakes.transaction', ['ngRoute', 'stakes.transaction.controllers', 'stakes.transaction.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/transactions', {
@@ -212,7 +212,7 @@
         }
         return obj.data;
     };
-    var data = angular.module('stakes-transaction.data', ['ngResource']);
+    var data = angular.module('stakes.transaction.data', ['ngResource']);
 
     data.factory('Transaction', ['$resource',
         function($resource) {
@@ -312,7 +312,7 @@
     var resetFocus = function() {
         angular.element('[name="username"]').trigger('focus');
     };
-    angular.module('stakes-user.controllers', ['stakes-user.data'])
+    angular.module('stakes.user.controllers', ['stakes.user.data'])
         .controller('ListUsersCtrl', function($scope, User, $timeout) {
             $scope.newUser = new User();
             User.query({}, function(users) {
@@ -383,7 +383,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-user.directives', [])
+    angular.module('stakes.user.directives', [])
         .directive('userForm', function() {
             return {
                 restrict: 'E',
@@ -427,7 +427,7 @@
 (function() {
     'use strict';
 
-    angular.module('stakes-user', ['ngRoute', 'stakes-user.controllers', 'stakes-user.directives'])
+    angular.module('stakes.user', ['ngRoute', 'stakes.user.controllers', 'stakes.user.directives'])
         .config(function($routeProvider) {
             $routeProvider
                 .when('/users', {
@@ -457,7 +457,7 @@
         }
         return obj.data;
     };
-    var data = angular.module('stakes-user.data', ['ngResource']);
+    var data = angular.module('stakes.user.data', ['ngResource']);
 
     data.factory('User', ['$resource',
         function($resource) {
