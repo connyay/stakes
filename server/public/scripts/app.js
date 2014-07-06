@@ -156,7 +156,9 @@
 
     angular.module('stakes-transaction.controllers', ['stakes-transaction.data'])
         .controller('ListTransactionsCtrl', function($scope, Transaction) {
-            Transaction.query({}, function(transactions) {
+            Transaction.query({
+                include: 'account'
+            }, function(transactions) {
                 $scope.transactions = transactions;
             });
         })
