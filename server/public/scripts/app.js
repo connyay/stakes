@@ -289,14 +289,7 @@
                 }, {
                     title: 'Users',
                     icon: 'users',
-                    route: 'users',
-                    subitems: [{
-                        title: 'All',
-                        route: ''
-                    }, {
-                        title: 'New',
-                        route: '/new'
-                    }]
+                    route: 'users'
                 }, {
                     title: 'Accounts',
                     icon: 'money',
