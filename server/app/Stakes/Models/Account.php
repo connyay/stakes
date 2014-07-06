@@ -1,12 +1,14 @@
 <?php
 namespace Stakes\Models;
 
+use SoftDeletingTrait;
 use Uuid;
 use Watson\Validating\ValidatingTrait;
 
 class Account extends BaseModel {
 
     use ValidatingTrait;
+    use SoftDeletingTrait;
 
     protected $rules = ['user_id' => 'required'];
 

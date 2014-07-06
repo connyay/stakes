@@ -2,10 +2,12 @@
 namespace Stakes\Models;
 
 use Illuminate\Auth\UserInterface;
+use SoftDeletingTrait;
 use Watson\Validating\ValidatingTrait;
 
 class User extends BaseModel implements UserInterface {
     use ValidatingTrait;
+    use SoftDeletingTrait;
 
     protected $rules = [
         'username' => 'required|unique:users,username',
@@ -56,6 +58,16 @@ class User extends BaseModel implements UserInterface {
 
     public function getRememberTokenName() {
         return 'remember_token';
+    }
+
+    public static function boot() {
+        parent::boot();
+
+        User::deleting(function ($user) {
+                if ($user->account) {
+                    $user->account->delete();
+                }
+            });
     }
 
     public function account() {
