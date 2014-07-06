@@ -42,10 +42,14 @@ gulp.task('templates', function() {
 
 gulp.task('vendorJS', function() {
     //concatenate vendor JS files
-    gulp.src(['!./bower_components/**/*.min.js',
-        './bower_components/**/*.js'
+    gulp.src(['./bower_components/angular/angular.js',
+        './bower_components/angular-route/angular-route.js',
+        './bower_components/angular-resource/angular-resource.js',
+        './bower_components/Chart.js/Chart.js',
+        './bower_components/angles/angles.js'
     ])
         .pipe(plugins.concat('lib.js'))
+        .pipe(plugins.uglify())
         .pipe(gulp.dest('../server/public/scripts'));
 });
 
