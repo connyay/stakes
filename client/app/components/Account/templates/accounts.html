@@ -9,7 +9,6 @@
                     <button type="button" class="btn btn-white btn-sm pull-right" ng-click="refresh()">
                         <span class="fa fa-refresh"></span>
                     </button>
-                    <span class="label bg-info pull-right">{{accounts.length}} total</span>
                     <h3>Accounts</h3>
                 </header>
                 <table class="table table-hover m-b-none text-sm">
@@ -33,6 +32,11 @@
                         </tr>
                     </tbody>
                 </table>
+                <footer class="panel-footer">
+                    <div class="row text-right">
+                        <span class="label bg-info">{{accounts.length}} total</span>
+                    </div>
+                </footer>
                 <loading ng-if="!accounts"></loading>
             </section>
         </div>

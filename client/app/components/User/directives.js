@@ -32,6 +32,12 @@
                     link: '='
                 }
             };
+        })
+        .directive('userNav', function() {
+            return {
+                restrict: 'E',
+                templateUrl: 'components/User/templates/user-nav.html'
+            };
 
         });
 
