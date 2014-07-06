@@ -9,16 +9,16 @@
 | load your controllers and models. This is useful for keeping all of
 | your classes in the "global" namespace without Composer updating.
 |
-*/
+ */
 
 ClassLoader::addDirectories(array(
 
-	app_path().'/commands',
-	app_path().'/controllers',
-	app_path().'/models',
-	app_path().'/database/seeds',
+        app_path().'/commands',
+        app_path().'/controllers',
+        app_path().'/models',
+        app_path().'/database/seeds',
 
-));
+    ));
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +29,10 @@ ClassLoader::addDirectories(array(
 | is built on top of the wonderful Monolog library. By default we will
 | build a basic log file setup which creates a single file for logs.
 |
-*/
+ */
 
-Log::useFiles(storage_path().'/logs/laravel.log');
+$logFile = 'log-'.php_sapi_name().'.txt';
+Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 
 /*
 |--------------------------------------------------------------------------
@@ -44,12 +45,11 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 | exceptions. If nothing is returned, the default error view is
 | shown, which includes a detailed stack trace during debug.
 |
-*/
+ */
 
-App::error(function(Exception $exception, $code)
-{
-	Log::error($exception);
-});
+App::error(function (Exception $exception, $code) {
+        Log::error($exception);
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -60,12 +60,11 @@ App::error(function(Exception $exception, $code)
 | into maintenance mode. Here, you will define what is displayed back
 | to the user if maintenance mode is in effect for the application.
 |
-*/
+ */
 
-App::down(function()
-{
-	return Response::make("Be right back!", 503);
-});
+App::down(function () {
+        return Response::make("Be right back!", 503);
+    });
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +75,8 @@ App::down(function()
 | a nice separate location to store our route and application filter
 | definitions instead of putting them all in the main routes file.
 |
-*/
+ */
 
 require app_path().'/filters.php';
-
 
 require app_path().'/helpers.php';
