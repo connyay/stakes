@@ -4,7 +4,7 @@
         <section>
             <nav class="nav-primary hidden-xs">
                 <ul class="nav">
-                    <li ng-repeat="item in navItems" ng-class="{'active':isActive('/{{item.route}}')}">
+                    <li ng-repeat="item in navItems" is-active data-route="/{{item.route}}">
                         <a href="#{{item.route}}" title="{{item.title}}" ng-if="!item.subitems">
                             <i class="fa fa-{{item.icon}}" ng-if="item.icon"></i>
                             {{item.title}}

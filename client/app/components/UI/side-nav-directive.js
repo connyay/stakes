@@ -32,10 +32,6 @@
                     icon: 'exchange',
                     route: 'transactions'
                 }];
-                // Used to set the active class on the nav li elements
-                $scope.isActive = function(route) {
-                    return route === $location.path();
-                };
             }
         ]);
 
