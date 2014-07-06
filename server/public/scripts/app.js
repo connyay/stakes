@@ -81,6 +81,12 @@
                     };
                 }
             };
+        })
+        .directive('accountNav', function() {
+            return {
+                restrict: 'E',
+                templateUrl: templatePath('account-nav')
+            };
         });
 })();
 (function() {
