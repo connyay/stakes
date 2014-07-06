@@ -53,8 +53,10 @@
         ])
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
             function($scope, $routeParams, User, $location) {
-                $scope.user = User.get({
+                User.get({
                     id: $routeParams.id
+                }, function(user) {
+                    $scope.user = user;
                 });
 
                 $scope.save = function() {

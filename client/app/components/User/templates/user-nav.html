@@ -1,4 +1,5 @@
 <div class="header pull-right">
     <a href="#/users" class="btn btn-success btn-sm btn-icon" title="List Users" is-active><i class="fa fa-list"></i></a>
     <a href="#/users/new" class="btn btn-success btn-sm btn-icon" title="New User" is-active><i class="fa fa-plus"></i></a>
+    <a ng-href="#/users/{{user.id}}/edit" class="btn btn-success btn-sm btn-icon" title="Edit User" ng-if="user && user.id" is-active ><i class="fa fa-edit"></i></a>
 </div>

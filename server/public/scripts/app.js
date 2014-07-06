@@ -155,7 +155,8 @@
                     restrict: 'A',
                     link: function($scope, element, attrs) {
                         var activeClass = attrs.activeClass || defaultActiveClass;
-                        var path = attrs.route || attrs.href.substr(1);
+
+                        var path = attrs.route || (attrs.href || attrs.ngHref).substr(1);
                         $scope.location = $location;
                         $scope.$watch('location.path()', function(newPath) {
                             element.toggleClass(activeClass, (path === newPath));
@@ -395,8 +396,10 @@
         ])
         .controller('EditUserCtrl', ['$scope', '$routeParams', 'User', '$location',
             function($scope, $routeParams, User, $location) {
-                $scope.user = User.get({
+                User.get({
                     id: $routeParams.id
+                }, function(user) {
+                    $scope.user = user;
                 });
 
                 $scope.save = function() {
