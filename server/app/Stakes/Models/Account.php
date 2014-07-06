@@ -1,6 +1,7 @@
 <?php
 namespace Stakes\Models;
 
+use Log;
 use SoftDeletingTrait;
 use Uuid;
 use Watson\Validating\ValidatingTrait;
@@ -18,7 +19,11 @@ class Account extends BaseModel {
         parent::boot();
 
         Account::creating(function ($account) {
-                return $account->account_id = Uuid::generate(4);
+                $account->account_id = Uuid::generate(4);
+                Log::info('Account created', ['account_id' => (string) $account->account_id]);
+            });
+        Account::deleting(function ($account) {
+                Log::info('Account deleted', ['account_id' => $account->account_id]);
             });
     }
 

@@ -8,16 +8,14 @@ class TransactionsTableSeeder extends Seeder {
         DB::table('transactions')->truncate();
 
         Transaction::create([
-                'account_id'     => 2,
-                'transaction_id' => Uuid::generate(4),
-                'amount'         => 10,
-                'type'           => '+'
+                'account_id' => 2,
+                'amount'     => 10,
+                'type'       => '+'
             ]);
         Transaction::create([
-                'account_id'     => 1,
-                'transaction_id' => Uuid::generate(4),
-                'amount'         => 15,
-                'type'           => '-'
+                'account_id' => 1,
+                'amount'     => 15,
+                'type'       => '-'
             ]);
     }
 

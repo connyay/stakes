@@ -8,19 +8,17 @@ class AccountsTableSeeder extends Seeder {
         DB::table('accounts')->truncate();
 
         Account::create([
-                'user_id'    => 1,
-                'account_id' => Uuid::generate(4),
-                'balance'    => 1000,
-                'wins'       => 11,
-                'losses'     => 4
+                'user_id' => 1,
+                'balance' => 1000,
+                'wins'    => 11,
+                'losses'  => 4
             ]);
 
         Account::create([
-                'user_id'    => 2,
-                'account_id' => Uuid::generate(4),
-                'balance'    => 300,
-                'wins'       => 4,
-                'losses'     => 2
+                'user_id' => 2,
+                'balance' => 300,
+                'wins'    => 4,
+                'losses'  => 2
             ]);
     }
 

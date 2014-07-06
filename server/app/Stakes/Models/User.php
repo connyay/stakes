@@ -68,10 +68,10 @@ class User extends BaseModel implements UserInterface {
                 if ($user->account) {
                     $user->account->delete();
                 }
-                Log::info('User Deleted');
+                Log::info('User Deleted', ['username' => $user->username]);
             });
         User::saving(function ($user) {
-                Log::info('User Created');
+                Log::info('User Created', ['username' => $user->username]);
             });
     }
 
