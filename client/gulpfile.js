@@ -1,14 +1,30 @@
-var gulp = require('gulp');
-var path = require('path');
-var plugins = require("gulp-load-plugins")({
-    lazy: false
-});
+var gulp = require('gulp'),
+    path = require('path'),
+    plugins = require("gulp-load-plugins")({
+        lazy: false
+    });
+
+var jsHintNotifier = function(file) {
+    var msgs = [];
+    if (file.jshint.results) {
+        file.jshint.results.forEach(function(err) {
+            var msg = [
+                path.relative('./app', err.file),
+                'Line: ' + err.error.line,
+                'Reason: ' + err.error.reason
+            ];
+            msgs.push(msg.join('\n'));
+        });
+        return msgs.join('\n');
+    }
+};
 
 gulp.task('scripts', function() {
     //combine all js files of the app
     gulp.src(['!./app/**/*_test.js', '!./app/assets/**/*.js', './app/**/*.js'])
         .pipe(plugins.jshint())
         .pipe(plugins.jshint.reporter('jshint-stylish'))
+        .pipe(plugins.notify(jsHintNotifier))
         .pipe(plugins.concat('app.js'))
         .pipe(gulp.dest('../server/public/scripts'));
 });
