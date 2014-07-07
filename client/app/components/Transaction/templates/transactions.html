@@ -25,8 +25,7 @@
                             </td>
                             <td>{{transaction.amount}}</td>
                             <td>
-                                <span class="label label-success" ng-if="transaction.type === 'credit'">Credit</span>
-                                <span class="label label-danger" ng-if="transaction.type === 'debit'">Debit</span>
+                                <span class="label label-success" ng-class="{'label-success': transaction.type === 'credit', 'label-danger': transaction.type === 'debit'}">{{transaction.type === 'credit' ? 'Credit' : 'Debit'}}</span>
                             </td>
                         </tr>
                     </tbody>
