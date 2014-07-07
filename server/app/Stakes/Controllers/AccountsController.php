@@ -64,6 +64,27 @@ class AccountsController extends ApiController {
     }
 
     /**
+	 * Update the specified resource in storage.
+	 * PUT /accounts/{account_id}/fund
+	 *
+	 * @param int     $account_id
+	 * @return Response
+	 */
+    public function fund($account_id) {
+        $account = Account::where('account_id', '=', $account_id)->first();
+        if (is_null($account)) {
+            return $this->errorNotFound();
+        }
+        $amount = Input::get('amount');
+        if (is_null($amount) || !is_integer($amount) || $amount <= 0) {
+            return $this->errorWrongArgs();
+        }
+        $account->balance += $amount;
+        $account->save();
+        return $this->respondWithItem($account, new AccountTransformer);
+    }
+
+    /**
 	 * Remove the specified resource from storage.
 	 * DELETE /accounts/{account_id}
 	 *
