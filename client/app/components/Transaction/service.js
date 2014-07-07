@@ -25,6 +25,9 @@
                         var transaction = getData(data);
                         if (transaction.account) {
                             transaction.account = getData(transaction.account);
+                            if (transaction.account.transactions) {
+                                transaction.account.transactions = getData(transaction.account.transactions);
+                            }
                         }
                         return transaction;
                     }

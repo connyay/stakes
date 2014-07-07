@@ -250,7 +250,7 @@
         .controller('ViewTransactionCtrl', function($scope, $routeParams, Transaction) {
             Transaction.get({
                 id: $routeParams.id,
-                include: 'account'
+                include: 'account,account.transactions'
             }, function(transaction) {
                 $scope.transaction = transaction;
             });
@@ -318,6 +318,9 @@
                         var transaction = getData(data);
                         if (transaction.account) {
                             transaction.account = getData(transaction.account);
+                            if (transaction.account.transactions) {
+                                transaction.account.transactions = getData(transaction.account.transactions);
+                            }
                         }
                         return transaction;
                     }
