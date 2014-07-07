@@ -7,7 +7,7 @@
         .directive('transactionOverview', function() {
             return {
                 restrict: 'E',
-                templateUrl: ('transaction-overview.html'),
+                templateUrl: templatePath('transaction-overview'),
                 scope: {
                     transaction: '=',
                     link: '='
