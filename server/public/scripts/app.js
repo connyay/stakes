@@ -39,7 +39,7 @@
         .controller('ViewAccountCtrl', function($scope, $routeParams, Account) {
             Account.get({
                 id: $routeParams.id,
-                include: 'user'
+                include: 'transactions,user'
             }, function(account) {
                 $scope.account = account;
             });
@@ -161,6 +161,9 @@
                         var account = getData(data);
                         if (account.user) {
                             account.user = getData(account.user);
+                        }
+                        if (account.transactions) {
+                            account.transactions = getData(account.transactions);
                         }
                         return account;
                     }

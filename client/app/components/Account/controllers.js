@@ -10,7 +10,7 @@
         .controller('ViewAccountCtrl', function($scope, $routeParams, Account) {
             Account.get({
                 id: $routeParams.id,
-                include: 'user'
+                include: 'transactions,user'
             }, function(account) {
                 $scope.account = account;
             });

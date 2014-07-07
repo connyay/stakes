@@ -26,6 +26,9 @@
                         if (account.user) {
                             account.user = getData(account.user);
                         }
+                        if (account.transactions) {
+                            account.transactions = getData(account.transactions);
+                        }
                         return account;
                     }
                 },
