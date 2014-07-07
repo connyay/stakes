@@ -13,7 +13,7 @@
                             <p class="text-muted">Credits to add</p>
                             <form class="form-inline m-t" name="form" role="form" ng-submit="fund()" novalidate>
                                 <div class="form-group">
-                                    <input type="number" name="username" class="form-control" ng-model="data.amount" placeholder="Amount" min="1" max="1000000" required>
+                                    <input type="number" name="username" class="form-control" ng-model="data.amount" placeholder="Amount" min="1" max="1000000" required autofocus>
                                 </div>
                                 <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Add</button>
                             </form>
