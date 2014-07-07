@@ -18,7 +18,7 @@
         .directive('accountQuickCreate', function() {
             return {
                 restrict: 'E',
-                templateUrl: templatePath('account-quick-create.html'),
+                templateUrl: templatePath('account-quick-create'),
                 scope: {
                     user: '='
                 },
