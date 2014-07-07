@@ -3,6 +3,7 @@ namespace Stakes\Controllers;
 
 use Input;
 use Stakes\Models\Account;
+use Stakes\Models\Transaction;
 use Stakes\Transformers\AccountTransformer;
 
 class AccountsController extends ApiController {
@@ -81,6 +82,11 @@ class AccountsController extends ApiController {
         }
         $account->balance += $amount;
         $account->save();
+        Transaction::create([
+                'account_id' => $account_id,
+                'amount'     => $amount,
+                'type'       => '+'
+            ]);
         return $this->respondWithItem($account, new AccountTransformer);
     }
 

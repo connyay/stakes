@@ -3,6 +3,7 @@ namespace Stakes\Models;
 
 use Log;
 use SoftDeletingTrait;
+use Uuid;
 
 class Transaction extends BaseModel {
     use SoftDeletingTrait;
