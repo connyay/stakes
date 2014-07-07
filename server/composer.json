@@ -6,7 +6,8 @@
         "laravel/framework": "4.2.*",
         "league/fractal": "0.8.*",
         "watson/validating": "0.7.*",
-        "webpatser/laravel-uuid": "dev-master"
+        "webpatser/laravel-uuid": "dev-master",
+        "barryvdh/laravel-debugbar": "1.*"
     },
     "require-dev": {
         "way/generators": "2.*"

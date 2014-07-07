@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('stakes.admin', ['ngRoute', 'stakes.dashboard.controllers', 'stakes.user', 'stakes.account',
-        'stakes.transaction', 'stakes.common.directives', 'templates', 'loadingDirective', 'sideNavDirective'
+        'stakes.transaction', 'stakes.common.directives', 'templates', 'ng-phpdebugbar', 'loadingDirective', 'sideNavDirective'
     ])
         .config(function($routeProvider) {
             $routeProvider
