@@ -43,6 +43,31 @@
             }, function(account) {
                 $scope.account = account;
             });
+        })
+        .controller('FundAccountCtrl', function($scope, $routeParams, Account) {
+            $scope.data = {
+                amount: 0
+            };
+            Account.get({
+                id: $routeParams.id,
+                include: 'user'
+            }, function(account) {
+                $scope.account = account;
+            });
+
+            $scope.fund = function() {
+                var amount = $scope.data.amount;
+                $scope.data.amount = 0;
+                Account.fund({
+                    id: $scope.account.id
+                }, {
+                    amount: amount
+                }, function(account) {
+                    $scope.account = account;
+                }, function() {
+                    $scope.data.amount = amount;
+                });
+            };
         });
 
 })();
@@ -102,6 +127,10 @@
                 .when('/accounts/:id', {
                     templateUrl: 'components/Account/templates/account.html',
                     controller: 'ViewAccountCtrl'
+                })
+                .when('/accounts/:id/fund', {
+                    templateUrl: 'components/Account/templates/fund-account.html',
+                    controller: 'FundAccountCtrl'
                 });
         });
 })();
@@ -139,6 +168,13 @@
                 'create': {
                     url: '/accounts',
                     method: 'POST',
+                    transformResponse: function(data) {
+                        return getData(data);
+                    }
+                },
+                'fund': {
+                    url: '/accounts/:id/fund',
+                    method: 'PUT',
                     transformResponse: function(data) {
                         return getData(data);
                     }

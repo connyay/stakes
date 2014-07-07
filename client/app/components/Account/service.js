@@ -36,6 +36,13 @@
                         return getData(data);
                     }
                 },
+                'fund': {
+                    url: '/accounts/:id/fund',
+                    method: 'PUT',
+                    transformResponse: function(data) {
+                        return getData(data);
+                    }
+                },
                 'delete': {
                     url: '/accounts/:id',
                     method: 'DELETE'

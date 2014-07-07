@@ -11,6 +11,10 @@
                 .when('/accounts/:id', {
                     templateUrl: 'components/Account/templates/account.html',
                     controller: 'ViewAccountCtrl'
+                })
+                .when('/accounts/:id/fund', {
+                    templateUrl: 'components/Account/templates/fund-account.html',
+                    controller: 'FundAccountCtrl'
                 });
         });
 })();
