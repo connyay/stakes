@@ -83,7 +83,8 @@
                 templateUrl: templatePath('account-overview'),
                 scope: {
                     account: '=',
-                    link: '='
+                    link: '=',
+                    simple: '='
                 }
             };
 

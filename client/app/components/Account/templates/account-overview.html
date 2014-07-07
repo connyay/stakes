@@ -7,7 +7,7 @@
             </p>
             <p><b>Created:</b> {{account.created | date:'MM/dd/yyyy @ h:mma'}}</p>
         </div>
-        <footer class="panel-footer">
+        <footer class="panel-footer" ng-if="!simple">
             <div class="row text-center">
                 <div class="col-xs-3 b-r">
                     <p class="h3 font-bold m-t">{{account.balance}}</p>
