@@ -1,6 +1,7 @@
 <?php
 namespace Stakes\Controllers;
 
+use Input;
 use Stakes\Models\Transaction;
 use Stakes\Transformers\TransactionTransformer;
 
@@ -13,9 +14,14 @@ class TransactionsController extends ApiController {
 	 * @return Response
 	 */
     public function index() {
-        $users = Transaction::get();
+        $includes = Input::get('include');
+        if ($includes === 'account') {
+            $transactions = Transaction::with($includes)->get();
+        } else {
+            $transactions = Transaction::get();
+        }
 
-        return $this->respondWithCollection($users, new TransactionTransformer);
+        return $this->respondWithCollection($transactions, new TransactionTransformer);
     }
 
     /**
